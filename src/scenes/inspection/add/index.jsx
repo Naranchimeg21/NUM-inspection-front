@@ -6,10 +6,6 @@ import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Check from "@mui/icons-material/Check";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import StepConnector, {
@@ -19,10 +15,18 @@ import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import { Button, Card, Divider, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import DataTable from "../components/dataTable";
+import SearchIcon from "@mui/icons-material/Search";
+import UserModal from "./components/modal/userModal";
+import Step2 from "./components/steps/inspection.step2";
+import Step3 from "./components/steps/inspection.step3";
+import Header from "../../../components/Header";
+import ListItems from "./components/listItems";
+import { Col, Row } from "antd";
 
 const InspectionAdd = () => {
   const steps = ["Хэрэглэгчийн бүртгэл", "Үзлэг бүртгэх", "Баталгаажуулах"];
   const [selected, setSelected] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
   const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
       top: 22,
@@ -110,7 +114,7 @@ const InspectionAdd = () => {
   return (
     <>
       <Topbar title="Шинэ үзлэг бүртгэх" subtitle="Эрүүл биед саруул ухаан" />
-      <Stack sx={{ width: "100%" }} spacing={4}>
+      {/* <Stack sx={{ width: "100%" }} spacing={4}>
         <Stepper
           alternativeLabel
           activeStep={selected}
@@ -124,56 +128,90 @@ const InspectionAdd = () => {
             </Step>
           ))}
         </Stepper>
-      </Stack>
-      <Card style={{ margin: 20 }}>
-        <Box m="20px" height="90%" display="flex" flexDirection="column">
-          {selected === 0 && (
-            <>
-              <TextField
-                id="outlined-textarea"
-                label="Хэрэглэгч хайх"
-                placeholder="РД, нэр, утасны дугаараар хайна уу."
-                multiline
-                size="small"
-              />
-              <Button color="success" variant="contained" size="small">
-                Буцах
-              </Button>
+      </Stack> */}
 
-              <Box sx={{ py: 3 }}>
-                <DataTable />
-              </Box>
-            </>
-          )}
-          {selected === 1 && <div>22222222222222</div>}
-          {selected === 2 && <div>33333333333333</div>}
-          <Box sx={{ pb: 2 }}>
-            <Divider />
-          </Box>
-          <Box width="100%" display="flex" justifyContent="space-between">
-            <Button
-              color="success"
-              variant="contained"
-              // onClick={handlepen}
-              onClick={() => {
-                setSelected(selected - 1);
-              }}
+      <Row style={{ minWidth: "95%", margin: "20px" }} gutter={(16, 16)}>
+        <Col xs={24} sm={24} md={8} lg={8} style={{ maxHeight: "90vh" }}>
+          <Card style={{ height: "100%" }}>
+            <Box
+              m="20px"
+              height="95%"
+              display="flex"
+              flexDirection="column"
+              justifyContent="space-between"
             >
-              Буцах
-            </Button>
-            <Button
-              color="success"
-              variant="contained"
-              // onClick={handlepen}
-              onClick={() => {
-                setSelected(selected + 1);
-              }}
-            >
-              Дараах
-            </Button>
-          </Box>
-        </Box>
-      </Card>
+              {selected === 0 && (
+                <div style={{ height: "90%" }}>
+                  <Box mx="20px">
+                    <Header title="Үйлчлүүлэгчдээс сонгоно уу" />
+                    <Box
+                      mt="20px"
+                      display="flex"
+                      justifyContent="space-between"
+                    >
+                      <TextField
+                        id="outlined-textarea"
+                        label="Хэрэглэгч хайх"
+                        placeholder="РД, нэр, утасны дугаараар хайна уу."
+                        size="small"
+                      />
+                      <Button
+                        color="success"
+                        variant="contained"
+                        size="large"
+                        startIcon={<SearchIcon />}
+                        onClick={() => setOpen(true)}
+                      >
+                        Хайх
+                      </Button>
+                    </Box>
+                  </Box>
+                  <Box sx={{ py: 3, height: "90%" }}>
+                    <ListItems />
+                  </Box>
+                </div>
+              )}
+              {selected === 1 && <Step2 />}
+              {selected === 2 && <Step3 />}
+              <div>
+                <Box sx={{ pb: 2, height: "10%" }}>
+                  <Divider />
+                </Box>
+                <Box width="100%" display="flex" justifyContent="space-between">
+                  <Button
+                    color="success"
+                    variant="contained"
+                    disabled={selected === 0 && true}
+                    onClick={() => {
+                      setSelected(selected - 1);
+                    }}
+                  >
+                    Буцах
+                  </Button>
+                  <Button
+                    color="success"
+                    variant="contained"
+                    onClick={() => {
+                      if (selected < 3) setSelected(selected + 1);
+                      // else
+                    }}
+                  >
+                    Дараах
+                  </Button>
+                </Box>
+              </div>
+            </Box>
+          </Card>
+        </Col>
+
+        <Col xs={24} sm={24} md={16} lg={16}>
+          <Card style={{ height: "100%", padding: "20px" }}>
+            <Step2 />
+          </Card>
+        </Col>
+      </Row>
+
+      <UserModal open={open} setOpen={setOpen} />
     </>
   );
 };

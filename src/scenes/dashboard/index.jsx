@@ -10,7 +10,10 @@ import InspectionTime from "./components/inspectionsChart";
 const Dashboard = () => {
   return (
     <>
-      <Topbar title="Хянах самбар" subtitle="" />
+      <Topbar
+        title="МУИС-ын эмнэлгийн веб хуудсанд тавтай морил!"
+        subtitle="Өдрийн мэнд, Эмчээ?"
+      />
       <Box m="20px">
         <Box display="flex" justifyContent="space-between">
           <InspectionTime />
