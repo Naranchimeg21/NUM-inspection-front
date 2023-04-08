@@ -2,18 +2,19 @@ import * as React from "react";
 import { Col, Form, Input, Modal, Row, Select } from "antd";
 
 const { Option } = Select;
-const UserModal = ({ open, setOpen = () => {} }) => {
+const VitalModal = ({ open, setOpen = () => {} }) => {
   return (
     <>
       <Modal
-        title="Хэрэглэгч бүртгэл"
+        title="Амин үзүүлэлт бүртгэл"
         width="50%"
-        okText="Хадгалах"
-        cancelText="Болих"
-        okButtonProps={{ style: { backgroundColor: "green" } }}
         open={open}
         maskClosable={false}
         onCancel={() => setOpen(false)}
+        okText="Хадгалах"
+        cancelText="Болих"
+        okButtonProps={{ style: { backgroundColor: "green" } }}
+        bodyStyle={{ height: "70vh" }}
       >
         <Form wrapperCol={{ span: 16 }} labelCol={{ span: 8 }}>
           <Row gutter={16}>
@@ -24,13 +25,13 @@ const UserModal = ({ open, setOpen = () => {} }) => {
               <Form.Item label="РД">
                 <Input placeholder="its my testtt" />
               </Form.Item>
-              <Form.Item label="Салбар">
+              <Form.Item label="Ner bj boliishd">
                 <Input placeholder="its my testtt" />
               </Form.Item>
-              <Form.Item label="Нас">
+              <Form.Item label="Ner bj boliishd">
                 <Input placeholder="its my testtt" />
               </Form.Item>
-              <Form.Item label="Утас">
+              <Form.Item label="Ner bj boliishd">
                 <Input placeholder="its my testtt" />
               </Form.Item>
             </Col>
@@ -44,10 +45,7 @@ const UserModal = ({ open, setOpen = () => {} }) => {
                   <Option value="2">Оюутан</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="Мэргэжил">
-                <Input placeholder="its my testtt" />
-              </Form.Item>
-              <Form.Item label="Хүйс">
+              <Form.Item label="Ner bj boliishd">
                 <Input placeholder="its my testtt" />
               </Form.Item>
             </Col>
@@ -58,4 +56,4 @@ const UserModal = ({ open, setOpen = () => {} }) => {
   );
 };
 
-export default UserModal;
+export default VitalModal;

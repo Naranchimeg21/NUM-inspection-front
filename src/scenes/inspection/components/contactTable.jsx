@@ -7,18 +7,86 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import { Pagination, PaginationItem } from "@mui/material";
+import { IconButton, Pagination, PaginationItem } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(lname, name, date, reason, phone) {
+  return { lname, name, date, reason, phone };
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
+  createData(
+    "Нямжав ",
+    "Наранчимэг",
+    "2023-03-20",
+    "Даралт хэт ихэссэн",
+    "88998899"
+  ),
 ];
 
 export default function ContactTable() {
@@ -41,21 +109,30 @@ export default function ContactTable() {
             <TableCell>№</TableCell>
             <TableCell>Овог</TableCell>
             <TableCell align="right">Нэр</TableCell>
-            <TableCell align="right">Шалтгаан&nbsp;(g)</TableCell>
-            <TableCell align="right">Утас&nbsp;(g)</TableCell>
-            <TableCell align="right">Үйлдлүүд&nbsp;(g)</TableCell>
+            <TableCell align="right">Үзлэгийн өдөр</TableCell>
+            <TableCell align="right">Шалтгаан</TableCell>
+            <TableCell align="right">Утас</TableCell>
+            <TableCell align="right">Үйлдлүүд</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row, idx) => (
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {idx + 1}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell component="th" scope="row">
+                {row.lname}
+              </TableCell>
+              <TableCell align="right">{row.name}</TableCell>
+              <TableCell align="right">{row.date}</TableCell>
+              <TableCell align="right">{row.reason}</TableCell>
+              <TableCell align="right">{row.phone}</TableCell>
+              <TableCell align="right">
+                <IconButton aria-label="delete" color="warning">
+                  <RemoveRedEyeIcon />
+                </IconButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

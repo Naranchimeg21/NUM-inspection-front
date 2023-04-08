@@ -64,7 +64,7 @@ const Inspection = () => {
         <Box display="flex" justifyContent="space-between">
           <Tabs value={value} onChange={handleChange}>
             <Tab label="Нийт үзлэгийн мэдээлэл" />
-            <Tab label="Эргэж холбогдох шаардлагатай үзлэгийн мэдээлэл" />
+            <Tab label="Эргэж холбогдох үзлэгийн мэдээлэл" />
           </Tabs>
           <Button
             color="success"

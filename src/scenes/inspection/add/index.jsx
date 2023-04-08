@@ -22,10 +22,12 @@ import Step3 from "./components/steps/inspection.step3";
 import Header from "../../../components/Header";
 import ListItems from "./components/listItems";
 import { Col, Row } from "antd";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import UserMasterData from "./components/userMasterData";
+import Grid from "@mui/material/Grid";
 
 const InspectionAdd = () => {
   const steps = ["Хэрэглэгчийн бүртгэл", "Үзлэг бүртгэх", "Баталгаажуулах"];
-  const [selected, setSelected] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -129,10 +131,10 @@ const InspectionAdd = () => {
           ))}
         </Stepper>
       </Stack> */}
-
-      <Row style={{ minWidth: "95%", margin: "20px" }} gutter={(16, 16)}>
-        <Col xs={24} sm={24} md={8} lg={8} style={{ maxHeight: "90vh" }}>
-          <Card style={{ height: "100%" }}>
+      <Grid container rowSpacing={2}>
+        <Grid item xs={12} md={4}>
+          <Card className="m-20">
+            {" "}
             <Box
               m="20px"
               height="95%"
@@ -140,76 +142,54 @@ const InspectionAdd = () => {
               flexDirection="column"
               justifyContent="space-between"
             >
-              {selected === 0 && (
-                <div style={{ height: "90%" }}>
-                  <Box mx="20px">
-                    <Header title="Үйлчлүүлэгчдээс сонгоно уу" />
-                    <Box
-                      mt="20px"
-                      display="flex"
-                      justifyContent="space-between"
+              <div style={{ height: "90%" }}>
+                <Box mx="20px">
+                  <Header title="Үйлчлүүлэгчдээс сонгоно уу" />
+                  <Box mt="20px" display="flex" justifyContent="space-between">
+                    <TextField
+                      id="outlined-textarea"
+                      label="Хэрэглэгч хайх"
+                      placeholder="РД, нэр, утасны дугаараар хайна уу."
+                      size="small"
+                    />
+                    <Button
+                      color="success"
+                      variant="contained"
+                      size="large"
+                      startIcon={<AddCircleOutlineIcon />}
+                      onClick={() => setOpen(true)}
                     >
-                      <TextField
-                        id="outlined-textarea"
-                        label="Хэрэглэгч хайх"
-                        placeholder="РД, нэр, утасны дугаараар хайна уу."
-                        size="small"
-                      />
-                      <Button
-                        color="success"
-                        variant="contained"
-                        size="large"
-                        startIcon={<SearchIcon />}
-                        onClick={() => setOpen(true)}
-                      >
-                        Хайх
-                      </Button>
-                    </Box>
+                      Бүртгэх
+                    </Button>
                   </Box>
-                  <Box sx={{ py: 3, height: "90%" }}>
-                    <ListItems />
-                  </Box>
-                </div>
-              )}
-              {selected === 1 && <Step2 />}
-              {selected === 2 && <Step3 />}
-              <div>
-                <Box sx={{ pb: 2, height: "10%" }}>
-                  <Divider />
                 </Box>
-                <Box width="100%" display="flex" justifyContent="space-between">
-                  <Button
-                    color="success"
-                    variant="contained"
-                    disabled={selected === 0 && true}
-                    onClick={() => {
-                      setSelected(selected - 1);
-                    }}
-                  >
-                    Буцах
-                  </Button>
-                  <Button
-                    color="success"
-                    variant="contained"
-                    onClick={() => {
-                      if (selected < 3) setSelected(selected + 1);
-                      // else
-                    }}
-                  >
-                    Дараах
-                  </Button>
+                <Box sx={{ py: 3, height: "90%" }}>
+                  <ListItems />
                 </Box>
               </div>
             </Box>
           </Card>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Card
+            className="mr-20 mt-20 mb-20"
+            style={{ height: "100%", padding: "20px" }}
+          >
+            <UserMasterData />
+          </Card>
+        </Grid>
+      </Grid>
+      {/* <Row style={{ minWidth: "95%", margin: "20px" }} gutter={(16, 16)}>
+        <Col xs={24} sm={24} md={8} lg={8} style={{ maxHeight: "90vh" }}>
+          <Card style={{ height: "100%" }}></Card>
         </Col>
 
         <Col xs={24} sm={24} md={16} lg={16}>
           <Card style={{ height: "100%", padding: "20px" }}>
-            <Step2 />
+            <UserMasterData />
           </Card>
         </Col>
-      </Row>
+      </Row> */}
 
       <UserModal open={open} setOpen={setOpen} />
     </>

@@ -6,15 +6,18 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { IconButton } from "@mui/material";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, time, type) {
+  return { name, time, type };
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
+  createData("Нямжав Наранчимэг", "2023-03-20 12:00", "Үзлэг"),
+  createData("Раднаа Анар", "2023-03-20 17:00", "Үзлэг"),
+  createData("Энхболд Мягмарсүрэн", "2023-03-21 11:00", "Эмчилгээ"),
 ];
 
 export default function AppointmentInfo() {
@@ -24,11 +27,10 @@ export default function AppointmentInfo() {
         <caption>A basic table example with a caption</caption>
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>Овог нэр</TableCell>
+            <TableCell align="right">Захиалсан цаг</TableCell>
+            <TableCell align="right">Цаг захиалгийн төрөл</TableCell>
+            <TableCell align="right">Үйлдлүүд</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -37,10 +39,16 @@ export default function AppointmentInfo() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.time}</TableCell>
+              <TableCell align="right">{row.type}</TableCell>
+              <TableCell align="right">
+                <IconButton aria-label="delete">
+                  <CheckCircleOutlineIcon color="success" />
+                </IconButton>
+                <IconButton aria-label="delete" color="warning">
+                  <HighlightOffIcon />
+                </IconButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
