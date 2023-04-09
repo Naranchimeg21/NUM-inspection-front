@@ -6,11 +6,12 @@ import ListSubheader from "@mui/material/ListSubheader";
 import { ListItemAvatar, ListItemButton } from "@mui/material";
 import { Avatar } from "antd";
 import Face3Icon from "@mui/icons-material/Face3";
-export default function PinnedSubheaderList() {
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+export default function PinnedSubheaderList({ data, setUserMaster }) {
+  const [selectedIndex, setSelectedIndex] = React.useState();
 
-  const handleListItemClick = (index) => {
+  const handleListItemClick = (index, item) => {
     setSelectedIndex(index);
+    setUserMaster(item);
   };
   return (
     <List
@@ -21,33 +22,38 @@ export default function PinnedSubheaderList() {
         position: "relative",
         overflow: "auto",
         height: "100%",
+        minHeight: "80vh",
         "& ul": { padding: 10 },
       }}
       subheader={<li />}
     >
-      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((sectionId) => (
-        <ListItemButton
-          sx={{
-            margin: "10px",
-            borderRadius: "10px",
-            border: "1px solid gray",
-            height: "80px",
-          }}
-          selected={selectedIndex === sectionId && true}
-          onClick={() => handleListItemClick(sectionId)}
-        >
-          <ListItemAvatar>
-            <Avatar
-              alt="Remy Sharp"
-              src="/static/images/avatar/1.jpg"
-              icon={<Face3Icon fontSize="large" />}
-              size={50}
+      {data &&
+        data.map((item, idx) => (
+          <ListItemButton
+            sx={{
+              margin: "10px",
+              borderRadius: "10px",
+              border: "1px solid gray",
+              height: "80px",
+            }}
+            selected={selectedIndex === idx && true}
+            onClick={() => handleListItemClick(idx, item)}
+          >
+            <ListItemAvatar>
+              <Avatar
+                alt="Remy Sharp"
+                src="/static/images/avatar/1.jpg"
+                icon={<Face3Icon fontSize="large" />}
+                size={50}
+              />
+            </ListItemAvatar>
+            <ListItemText primary={item.firstName} secondary={item.lastName} />
+            <ListItemText
+              primary={item.register}
+              secondary={`${item.branchSchool} - ${item.major}`}
             />
-          </ListItemAvatar>
-          <ListItemText primary="Нэр" secondary="Овог" />
-          <ListItemText primary="Регистр" secondary="Сургууль" />
-        </ListItemButton>
-      ))}
+          </ListItemButton>
+        ))}
     </List>
   );
 }

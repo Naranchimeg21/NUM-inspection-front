@@ -1,8 +1,22 @@
 import * as React from "react";
-import { Col, Form, Input, Modal, Row, Select } from "antd";
+import { Col, Form, Input, InputNumber, Modal, Row, Select } from "antd";
+import customAxios from "../../../../../utils/networkActions";
 
 const { Option } = Select;
-const VitalModal = ({ open, setOpen = () => {} }) => {
+const VitalModal = ({ open, setOpen = () => {}, id }) => {
+  const { useForm } = Form;
+  const [form] = useForm();
+
+  const onSubmit = (value) => {
+    customAxios
+      .post("/", { ...value, patientId: id })
+      .then((res) => {
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <Modal
@@ -14,39 +28,86 @@ const VitalModal = ({ open, setOpen = () => {} }) => {
         okText="Хадгалах"
         cancelText="Болих"
         okButtonProps={{ style: { backgroundColor: "green" } }}
-        bodyStyle={{ height: "70vh" }}
+        bodyStyle={{
+          height: "70vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        onOk={() => {
+          form.submit();
+        }}
       >
-        <Form wrapperCol={{ span: 16 }} labelCol={{ span: 8 }}>
+        <Form
+          wrapperCol={{ span: 12 }}
+          labelCol={{ span: 12 }}
+          labelAlign="left"
+          form={form}
+          onFinish={onSubmit}
+        >
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item label="Овог">
-                <Input placeholder="its my testtt" />
+              <Form.Item label="Ухаан санаа" name="uhaanSanaa">
+                <Input />
               </Form.Item>
-              <Form.Item label="РД">
-                <Input placeholder="its my testtt" />
+              <Form.Item label="Пульс" name="pulse">
+                <InputNumber placeholder="" className="wp-100" />
               </Form.Item>
-              <Form.Item label="Ner bj boliishd">
-                <Input placeholder="its my testtt" />
+              <Form.Item label="Амьсгалын тоо" name="breath">
+                <InputNumber className="wp-100" />
               </Form.Item>
-              <Form.Item label="Ner bj boliishd">
-                <Input placeholder="its my testtt" />
+              <Form.Item label="Сатураци" name="saturation">
+                <InputNumber className="wp-100" />
               </Form.Item>
-              <Form.Item label="Ner bj boliishd">
-                <Input placeholder="its my testtt" />
+              <Form.Item label="Биеийн температур" name="temperature">
+                <InputNumber className="wp-100" addonAfter="°C" />
+              </Form.Item>
+              <Form.Item label="Өндөр" name="bodyHeight">
+                <InputNumber className="wp-100" addonAfter="cm" />
+              </Form.Item>
+              <Form.Item label="Жин" name="bodyWeight">
+                <InputNumber className="wp-100" addonAfter="kg" />
+              </Form.Item>
+              <Form.Item label="БЖИ" name="BJI">
+                <InputNumber className="wp-100" />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label="Нэр">
-                <Input placeholder="its my testtt" />
+              <Form.Item label="Баруун даралт /Дээд/" name="pressureRightDeed">
+                <InputNumber className="wp-100" />
               </Form.Item>
-              <Form.Item label="Төрөл">
-                <Select defaultValue="1">
-                  <Option value="1">Багш, ажилчин</Option>
-                  <Option value="2">Оюутан</Option>
-                </Select>
+              <Form.Item label="Баруун даралт /Доод/" name="pressureRightDood">
+                <InputNumber className="wp-100" />
               </Form.Item>
-              <Form.Item label="Ner bj boliishd">
-                <Input placeholder="its my testtt" />
+              <Form.Item
+                label="Баруун даралт /Дундаж/"
+                name="pressureRightAverage"
+              >
+                <InputNumber className="wp-100" />
+              </Form.Item>
+              <Form.Item
+                label="Баруун даралт /Нэмэлт/"
+                name="pressureRightAdditional"
+              >
+                <Input className="wp-100" />
+              </Form.Item>
+              <Form.Item label="Зүүн даралт /Дээд/" name="pressureLeftDeed">
+                <InputNumber className="wp-100" />
+              </Form.Item>
+              <Form.Item label="Зүүн даралт /Доод/" name="pressureLeftDood">
+                <InputNumber className="wp-100" />
+              </Form.Item>
+              <Form.Item
+                label="Зүүн даралт /Дундаж/"
+                name="pressureLeftAverage"
+              >
+                <InputNumber className="wp-100" />
+              </Form.Item>
+              <Form.Item
+                label="Зүүн даралт /Нэмэлт/"
+                name="pressureLeftAdditional"
+              >
+                <Input className="wp-100" />
               </Form.Item>
             </Col>
           </Row>
