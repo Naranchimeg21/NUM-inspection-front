@@ -15,7 +15,7 @@ import { useState } from "react";
 import DataTable from "../../components/dataTable";
 import VitalData from "./data/vitalData";
 import { useEffect } from "react";
-import customAxios from "../../../../utils/networkActions";
+import vitalAxios from "../../../../utils/vitalnetworkActions";
 
 export default function UserMasterData({ data }) {
   const [vitalOpen, setIsVital] = useState(false);
@@ -45,7 +45,7 @@ export default function UserMasterData({ data }) {
   }
 
   useEffect(() => {
-    customAxios
+    vitalAxios
       .get("/all", { params: { patientId: data.id } })
       .then((res) => {
         console.log(res.data.data);
@@ -173,10 +173,28 @@ export default function UserMasterData({ data }) {
                   <Image
                     preview={false}
                     className="minw-70 h-70 wp-40 "
-                    src="/assets/em.png"
+                    src="/assets/uzleg.png"
                   />
                   <div>
                     <h4 className="m-5"> Эмчилгээний заавар</h4>
+                  </div>
+                </div>
+              </Card>
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Card
+                className="maxnw-400"
+                hoverable
+                onClick={() => setMedicOpen(true)}
+              >
+                <div className="col-content center-center">
+                  <Image
+                    preview={false}
+                    className="minw-70 h-70 wp-40 "
+                    src="/assets/em.png"
+                  />
+                  <div>
+                    <h4 className="m-5">Эмийн жор</h4>
                   </div>
                 </div>
               </Card>

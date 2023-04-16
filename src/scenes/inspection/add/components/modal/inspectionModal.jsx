@@ -1,15 +1,36 @@
 import * as React from "react";
-import { Col, Form, Input, Modal, Row, Select } from "antd";
+import { Col, Form, Input, Modal, Popconfirm, Row, Select } from "antd";
 import { Box, Button, Divider, Stepper } from "@mui/material";
 import InspectionStepper from "../stepper";
 import Step2 from "../steps/inspection.step2";
 import Step3 from "../steps/inspection.step3";
 import Step1 from "../steps/inspection.step1";
+import { useState } from "react";
+import { useEffect } from "react";
+import inspectionAxios from "../../../../../utils/inspectionnetworkActions";
 
 const { Option } = Select;
 const InspectionModal = ({ open, setOpen = () => {} }) => {
-  const [selected, setSelected] = React.useState(0);
-  React.useEffect(() => {
+  const [selected, setSelected] = useState(0);
+  const [isPop, setIsPop] = useState(false);
+  const [questionsList, setQuestionsList] = useState([]);
+  const { useForm } = Form;
+  const [form] = useForm();
+  const onSubmit = (value) => {
+    inspectionAxios
+      .post("/inspection", value)
+      .then((res) => {
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const onClose = () => {
+    setOpen(false);
+    setIsPop(false);
+  };
+  useEffect(() => {
     if (!open) {
       setSelected(0);
     }
@@ -21,7 +42,7 @@ const InspectionModal = ({ open, setOpen = () => {} }) => {
         width="50%"
         open={open}
         maskClosable={false}
-        onCancel={() => setOpen(false)}
+        onCancel={() => setIsPop(true)}
         bodyStyle={{ height: "70vh" }}
         footer={
           <div>
@@ -53,11 +74,30 @@ const InspectionModal = ({ open, setOpen = () => {} }) => {
           </div>
         }
       >
+        <Box display="flex" justifyContent="center">
+          <Popconfirm
+            title="Анхааруулга"
+            description="Үзлэг бүртгэлээс гарвал өмнөх оруулсан мэдээлэлүүд хадгалагдахгүй
+            болохыг анхааруулж байна."
+            open={isPop === true && open === true}
+            placement="top"
+            onConfirm={onClose}
+            onCancel={() => setIsPop(false)}
+          ></Popconfirm>
+        </Box>
+
         <InspectionStepper selected={selected} />
         <Box m="20px" height="95%">
-          {selected === 0 && <Step1 />}
-          {selected === 1 && <Step2 />}
-          {selected === 2 && <Step3 />}
+          <Form form={form} onFinish={onSubmit}>
+            {selected === 0 && (
+              <Step1
+                questionsList={questionsList}
+                setQuestionsList={setQuestionsList}
+              />
+            )}
+            {selected === 1 && <Step2 />}
+            {selected === 2 && <Step3 />}
+          </Form>
         </Box>
       </Modal>
     </>

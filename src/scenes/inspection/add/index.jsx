@@ -15,7 +15,8 @@ import UserMasterData from "./components/userMasterData";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import { useEffect } from "react";
-import customAxios from "../../../utils/networkActions";
+import vitalAxios from "../../../utils/vitalnetworkActions";
+import inspectionAxios from "../../../utils/inspectionnetworkActions";
 
 const InspectionAdd = () => {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ const InspectionAdd = () => {
 
   //nahh just for test
   useEffect(() => {
-    customAxios
+    inspectionAxios
       .get("/user")
       .then((res) => {
         setUser(res.data.data);

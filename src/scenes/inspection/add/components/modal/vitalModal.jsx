@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Col, Form, Input, InputNumber, Modal, Row, Select } from "antd";
-import customAxios from "../../../../../utils/networkActions";
+import vitalAxios from "../../../../../utils/vitalnetworkActions";
 
 const { Option } = Select;
 const VitalModal = ({ open, setOpen = () => {}, id }) => {
@@ -8,7 +8,7 @@ const VitalModal = ({ open, setOpen = () => {}, id }) => {
   const [form] = useForm();
 
   const onSubmit = (value) => {
-    customAxios
+    vitalAxios
       .post("/", { ...value, patientId: id })
       .then((res) => {
         console.log(res.data.data);
