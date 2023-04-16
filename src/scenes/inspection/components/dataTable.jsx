@@ -6,31 +6,123 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { IconButton, Pagination, PaginationItem } from "@mui/material";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(date, lname, name, type, diagnosis, ajilbar) {
+  return { date, lname, name, type, diagnosis, ajilbar };
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
+  createData(
+    "2023-03-20",
+    "Нямжав ",
+    "Хяналтаар",
+    "Наранчимэг",
+    "A01.9",
+    "Эмчилгээ"
+  ),
 ];
 
 export default function DataTable() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
-        <caption>A basic table example with a caption</caption>
+        <caption>
+          <Pagination
+            count={10}
+            renderItem={(item) => (
+              <PaginationItem
+                slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                {...item}
+              />
+            )}
+          />
+        </caption>
         <TableHead>
           <TableRow>
             <TableCell>№</TableCell>
+            <TableCell>Үзлэгийн өдөр</TableCell>
             <TableCell>Овог</TableCell>
-            <TableCell align="right">Нэр</TableCell>
-            <TableCell align="right">Үзлэгийн төрөл&nbsp;(g)</TableCell>
-            <TableCell align="right">Онош&nbsp;(g)</TableCell>
-            <TableCell align="right">Хийгдсэн ажилбар&nbsp;(g)</TableCell>
-            <TableCell align="right">Үйлдлүүд&nbsp;(g)</TableCell>
+            <TableCell>Нэр</TableCell>
+            <TableCell>Үзлэгийн төрөл</TableCell>
+            <TableCell>Онош</TableCell>
+            <TableCell>Хийгдсэн ажилбар</TableCell>
+            <TableCell>Үйлдлүүд</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -39,12 +131,17 @@ export default function DataTable() {
               <TableCell component="th" scope="row">
                 {idx + 1}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell>{row.date}</TableCell>
+              <TableCell>{row.lname}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.type}</TableCell>
+              <TableCell>{row.diagnosis}</TableCell>
+              <TableCell>{row.ajilbar}</TableCell>
+              <TableCell>
+                <IconButton aria-label="delete" color="warning">
+                  <RemoveRedEyeIcon />
+                </IconButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

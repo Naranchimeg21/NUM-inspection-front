@@ -104,7 +104,7 @@ const Sidebar = () => {
               position: "fixed",
               bottom: 0,
               left: 0,
-              background: "#445476",
+              background: colors.primary[800],
               paddingLeft: isCollapsed ? "20px" : 0,
             }}
           >
@@ -112,7 +112,7 @@ const Sidebar = () => {
               onClick={() => setIsCollapsed(!isCollapsed)}
               icon={isCollapsed ? <ArrowForwardIcon /> : <ArrowBackIcon />}
               style={{
-                color: colors.grey[100],
+                color: colors.primary[300],
               }}
             ></MenuItem>
           </div>

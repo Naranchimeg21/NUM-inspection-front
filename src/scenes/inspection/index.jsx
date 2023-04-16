@@ -4,8 +4,6 @@ import Card from "@mui/material/Card";
 import { useState } from "react";
 import Topbar from "../global/Topbar";
 import DataTable from "./components/dataTable";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ContactTable from "./components/contactTable";
 import { useNavigate } from "react-router-dom";
 
@@ -66,7 +64,7 @@ const Inspection = () => {
         <Box display="flex" justifyContent="space-between">
           <Tabs value={value} onChange={handleChange}>
             <Tab label="Нийт үзлэгийн мэдээлэл" />
-            <Tab label="Эргэж холбогдох шаардлагатай үзлэгийн мэдээлэл" />
+            <Tab label="Эргэж холбогдох үзлэгийн мэдээлэл" />
           </Tabs>
           <Button
             color="success"
@@ -88,15 +86,6 @@ const Inspection = () => {
           <TabPanel value={value} index={1}>
             <ContactTable />
           </TabPanel>
-          <Pagination
-            count={data.length}
-            renderItem={(item) => (
-              <PaginationItem
-                slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-                {...item}
-              />
-            )}
-          />
         </Box>
       </Box>
     </>
