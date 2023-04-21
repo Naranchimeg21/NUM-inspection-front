@@ -87,7 +87,7 @@ const InspectionModal = ({ open, setOpen = () => {} }) => {
         </Box>
 
         <InspectionStepper selected={selected} />
-        <Box m="20px" height="95%">
+        <Box m="20px" height="95%" display="flex">
           <Form form={form} onFinish={onSubmit}>
             {selected === 0 && (
               <Step1

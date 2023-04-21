@@ -17,6 +17,7 @@ body,
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -25,6 +26,7 @@ body,
 
 ::-webkit-scrollbar-thumb {
   background: #888;
+  border-radius: 5px;
 }
 
 /* handle on hover */
@@ -35,7 +37,11 @@ body,
 .content {
   overflow-y: auto;
 }
-
+.content-x {
+  overflow-x: auto;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: 10px;
+}
 .m-20 {
   margin: 20px;
 }
@@ -258,6 +264,12 @@ body,
 .maxnh-20 {
   max-height: 20px !important;
 }
+.maxnh-30 {
+  max-height: 30px !important;
+}
+.maxnh-40 {
+  max-height: 40px !important;
+}
 .maxnh-50 {
   max-height: 50px !important;
 }
@@ -449,7 +461,7 @@ body,
   border-left: 1px solid #f0f0f0 !important;
 }
 .border {
-  border: 1px solid rgb(224, 220, 220) !important;
+  border: 1px solid rgb(243, 239, 239) !important;
 }
 /* .border-blue {
   border: 1px solid $primary-color !important;
@@ -467,6 +479,9 @@ body,
 /* //margin */
 .m-0 {
   margin: 0px !important;
+}
+.m-2 {
+  margin: 2px !important;
 }
 .m-5 {
   margin: 5px !important;
@@ -1047,6 +1062,12 @@ body,
 }
 .h-95 {
   height: 95% !important;
+}
+.hp-90 {
+  height: 90% !important;
+}
+.hp-80 {
+  height: 80% !important;
 }
 .w-95 {
   width: 95% !important;

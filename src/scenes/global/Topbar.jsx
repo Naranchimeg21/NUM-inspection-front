@@ -11,36 +11,22 @@ import SearchIcon from "@mui/icons-material/Search";
 import Header from "../../components/Header";
 import { getTypes } from "../../utils/filters";
 
-const Topbar = ({ title, subtitle, filter }) => {
+const Topbar = ({ title, subtitle, children }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-  const [data, setData] = useState([]);
-  const [type, setType] = useState("");
-  const [chosenArticle, setChosenArticle] = useState(null);
-  const [searchArticle, setSearchArticle] = useState(null);
-  const types = getTypes(data);
-
-  const handleType = (e) => {
-    setType(e.target.value);
-  };
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      p={2}
+      sx={{ background: colors.primary[400] }}
+      className="card-shadow"
+    >
       <Header title={title} subtitle={subtitle} filter />
-      <Box display="flex">
-        {filter && filter}
-        <Box
-          display="flex"
-          backgroundColor={colors.primary[400]}
-          borderRadius="3px"
-          style={{ height: "40px", marginRight: 40 }}
-        >
-          <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-          <IconButton type="button" sx={{ p: 1 }}>
-            <SearchIcon />
-          </IconButton>
-        </Box>
-        <IconButton onClick={colorMode.toggleColorMode}>
+      <Box display="flex" alignItems="center">
+        {children}
+        <IconButton className="ml-20" onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (
@@ -50,9 +36,7 @@ const Topbar = ({ title, subtitle, filter }) => {
         <IconButton>
           <NotificationsOutlinedIcon />
         </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
+
         <IconButton>
           <PersonOutlinedIcon />
         </IconButton>

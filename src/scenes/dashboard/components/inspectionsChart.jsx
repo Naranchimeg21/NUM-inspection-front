@@ -6,7 +6,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-const InspectionTime = () => {
+const InspectionTime = ({ color }) => {
   const data = [
     {
       timePeriod: "2006 Q3",
@@ -248,7 +248,7 @@ const InspectionTime = () => {
   };
 
   return (
-    <Card sx={{ minWidth: "50%", padding: 2 }}>
+    <Card sx={{ minWidth: "50%", padding: 2, background: color }}>
       <Typography gutterBottom variant="h5" component="div">
         Үзлэг оношилгоо хийлгэсэн үйлчлүүлэгчдийн тоо
       </Typography>

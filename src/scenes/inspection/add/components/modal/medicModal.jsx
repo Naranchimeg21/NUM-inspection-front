@@ -1,13 +1,16 @@
 import * as React from "react";
-import { Col, Form, Input, Modal, Row, Select } from "antd";
-import { Stepper } from "@mui/material";
+import { Form, Input, Modal, Select } from "antd";
+import { Button, Grid, Stepper } from "@mui/material";
+import { useState } from "react";
 
 const { Option } = Select;
+
 const MedicModal = ({ open, setOpen = () => {} }) => {
+  const [type, setType] = useState();
   return (
     <>
       <Modal
-        title="Үзлэг бүртгэл"
+        title="Эмчилгээний заавар бүртгэл"
         width="50%"
         open={open}
         maskClosable={false}
@@ -18,39 +21,87 @@ const MedicModal = ({ open, setOpen = () => {} }) => {
         bodyStyle={{ height: "70vh" }}
       >
         <Form wrapperCol={{ span: 16 }} labelCol={{ span: 8 }}>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item label="Овог">
-                <Input placeholder="its my testtt" />
-              </Form.Item>
-              <Form.Item label="РД">
-                <Input placeholder="its my testtt" />
-              </Form.Item>
-              <Form.Item label="Ner bj boliishd">
-                <Input placeholder="its my testtt" />
-              </Form.Item>
-              <Form.Item label="Ner bj boliishd">
-                <Input placeholder="its my testtt" />
-              </Form.Item>
-              <Form.Item label="Ner bj boliishd">
-                <Input placeholder="its my testtt" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item label="Нэр">
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <Form.Item label="Оношийн нэр">
                 <Input placeholder="its my testtt" />
               </Form.Item>
               <Form.Item label="Төрөл">
-                <Select defaultValue="1">
-                  <Option value="1">Багш, ажилчин</Option>
-                  <Option value="2">Оюутан</Option>
+                <Select defaultValue="" onSelect={(value) => setType(value)}>
+                  <Option value="1">Сэргээн засах эмчилгээ</Option>
+                  <Option value="2">Энгийн</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="Ner bj boliishd">
+
+              {type && (
+                <>
+                  <Form.Item label="Хийгдэх эмчилгээ">
+                    <Input placeholder="its my testtt" />
+                  </Form.Item>
+                  <Form.Item label="Хэдэн удаа">
+                    <Input placeholder="its my testtt" />
+                  </Form.Item>
+                  {type == 1 && (
+                    <Form.Item label="Талбай">
+                      <Input placeholder="its my testtt" />
+                    </Form.Item>
+                  )}
+                </>
+              )}
+            </Grid>
+            <Grid item xs={6}>
+              <Form.Item label="Оношийн код">
                 <Input placeholder="its my testtt" />
               </Form.Item>
-            </Col>
-          </Row>
+              <Form.Item label="Эмчилгээний нэр">
+                {type == 1 ? (
+                  <Select defaultValue="">
+                    <Option value="1">Сэргээн засах эмчилгээ 1</Option>
+                    <Option value="2">Сэргээн засах эмчилгээ 2</Option>
+                  </Select>
+                ) : (
+                  <Select defaultValue="">
+                    <Option value="1">Энгийн эмчилгээ 1</Option>
+                    <Option value="2">Энгийн эмчилгээ 2</Option>
+                  </Select>
+                )}
+              </Form.Item>
+              {type && (
+                <>
+                  <Form.Item label="Эрхтэн">
+                    <Input placeholder="its my testtt" />
+                  </Form.Item>
+                  {type == 2 ? (
+                    <Form.Item label="Тун">
+                      <Input placeholder="its my testtt" />
+                    </Form.Item>
+                  ) : (
+                    <Form.Item label="Хугацаа">
+                      <Input placeholder="its my testtt" />
+                    </Form.Item>
+                  )}
+                  {type == 1 && (
+                    <Form.Item label="Давтамж">
+                      <Input placeholder="its my testtt" />
+                    </Form.Item>
+                  )}
+                </>
+              )}
+            </Grid>
+            {type && (
+              <Grid item sx={12}>
+                <Button
+                  color="success"
+                  variant="contained"
+                  size="medium"
+                  className="w-100"
+                  // onClick={() => form.submit()}
+                >
+                  Эмчилгээний заавар нэмэх
+                </Button>
+              </Grid>
+            )}
+          </Grid>
         </Form>
       </Modal>
     </>

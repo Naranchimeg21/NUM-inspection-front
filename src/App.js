@@ -8,6 +8,7 @@ import "./index.css";
 import Report from "./scenes/report";
 import Inspection from "./scenes/inspection";
 import InspectionAdd from "./scenes/inspection/add";
+import User from "./scenes/user";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -23,6 +24,7 @@ function App() {
               <Route path="/inspection" element={<Inspection />} />
               <Route path="/inspection/add" element={<InspectionAdd />} />
               <Route path="/report" element={<Report />} />
+              <Route path="/user" element={<User />} />
             </Routes>
           </main>
         </div>

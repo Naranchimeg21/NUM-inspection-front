@@ -89,9 +89,9 @@ const rows = [
   ),
 ];
 
-export default function ContactTable() {
+export default function ContactTable({ color }) {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ background: color }}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
         <caption>
           <Pagination
@@ -106,13 +106,23 @@ export default function ContactTable() {
         </caption>
         <TableHead>
           <TableRow>
-            <TableCell>№</TableCell>
-            <TableCell>Овог</TableCell>
-            <TableCell align="right">Нэр</TableCell>
-            <TableCell align="right">Үзлэгийн өдөр</TableCell>
-            <TableCell align="right">Шалтгаан</TableCell>
-            <TableCell align="right">Утас</TableCell>
-            <TableCell align="right">Үйлдлүүд</TableCell>
+            <TableCell className="fw-600">№</TableCell>
+            <TableCell className="fw-600">Овог</TableCell>
+            <TableCell align="right" className="fw-600">
+              Нэр
+            </TableCell>
+            <TableCell align="right" className="fw-600">
+              Үзлэгийн өдөр
+            </TableCell>
+            <TableCell align="right" className="fw-600">
+              Шалтгаан
+            </TableCell>
+            <TableCell align="right" className="fw-600">
+              Утас
+            </TableCell>
+            <TableCell align="right" className="fw-600">
+              Үйлдлүүд
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

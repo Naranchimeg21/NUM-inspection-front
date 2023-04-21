@@ -23,13 +23,15 @@ const InspectionAdd = () => {
   const [user, setUser] = useState([]);
   const [userId, setUserId] = useState("");
   const [userMaster, setUserMaster] = useState({});
-
+  const queryParams = new URLSearchParams(window.location.search);
+  const id = queryParams.get("id");
   //nahh just for test
   useEffect(() => {
     inspectionAxios
-      .get("/user")
+      .get("/user", { params: { id } })
       .then((res) => {
-        setUser(res.data.data);
+        if (id) setUserMaster(res.data.data[0]);
+        else setUser(res.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -40,53 +42,56 @@ const InspectionAdd = () => {
     <>
       <Topbar title="Шинэ үзлэг бүртгэх" subtitle="Эрүүл биед саруул ухаан" />
       <Grid container rowSpacing={2}>
-        <Grid item xs={12} md={4}>
-          <Card className="m-20">
-            {" "}
-            <Box
-              m="20px"
-              height="95%"
-              display="flex"
-              flexDirection="column"
-              justifyContent="space-between"
-            >
-              <div style={{ height: "90%" }}>
-                <Box mx="20px">
-                  <Header title="Үйлчлүүлэгчдээс сонгоно уу" />
-                  <Box mt="20px" display="flex" justifyContent="space-between">
-                    <TextField
-                      id="outlined-textarea"
-                      label="Хэрэглэгч хайх"
-                      placeholder="РД, нэр, утасны дугаараар хайна уу."
-                      size="small"
-                    />
-                    <Button
-                      color="success"
-                      variant="contained"
-                      size="large"
-                      startIcon={<AddCircleOutlineIcon />}
-                      onClick={() => setOpen(true)}
+        {!id && (
+          <Grid item xs={12} md={4}>
+            <Card className="ml-20 mt-20 mb-20">
+              {" "}
+              <Box
+                m="20px"
+                height="95%"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+              >
+                <div style={{ height: "90%" }}>
+                  <Box mx="20px">
+                    <Header title="Үйлчлүүлэгчдээс сонгоно уу" />
+                    <Box
+                      mt="20px"
+                      display="flex"
+                      justifyContent="space-between"
                     >
-                      Бүртгэх
-                    </Button>
+                      <TextField
+                        id="outlined-textarea"
+                        label="Хэрэглэгч хайх"
+                        placeholder="РД, нэр, утасны дугаараар хайна уу."
+                        size="small"
+                      />
+                      <Button
+                        color="success"
+                        variant="contained"
+                        size="large"
+                        startIcon={<AddCircleOutlineIcon />}
+                        onClick={() => setOpen(true)}
+                      >
+                        Бүртгэх
+                      </Button>
+                    </Box>
                   </Box>
-                </Box>
-                <Box sx={{ py: 3, height: "90%" }}>
-                  <ListItems
-                    data={user}
-                    setUserMaster={setUserMaster}
-                    setUserId={setUserId}
-                  />
-                </Box>
-              </div>
-            </Box>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <Card
-            className="mr-20 mt-20 mb-20"
-            style={{ height: "100%", padding: "20px" }}
-          >
+                  <Box sx={{ py: 3, height: "90%" }}>
+                    <ListItems
+                      data={user}
+                      setUserMaster={setUserMaster}
+                      setUserId={setUserId}
+                    />
+                  </Box>
+                </div>
+              </Box>
+            </Card>
+          </Grid>
+        )}
+        <Grid item xs={12} md={id ? 12 : 8}>
+          <Card className="m-20" style={{ height: "100%", padding: "20px" }}>
             <UserMasterData data={userMaster} />
           </Card>
         </Grid>

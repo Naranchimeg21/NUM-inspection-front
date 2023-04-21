@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { IconButton, Pagination, PaginationItem } from "@mui/material";
+import { IconButton, Pagination, PaginationItem, Tooltip } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 function createData(date, lname, name, type, diagnosis, ajilbar) {
@@ -98,9 +98,9 @@ const rows = [
   ),
 ];
 
-export default function DataTable() {
+export default function DataTable({ color }) {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ background: color }}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
         <caption>
           <Pagination
@@ -115,14 +115,14 @@ export default function DataTable() {
         </caption>
         <TableHead>
           <TableRow>
-            <TableCell>№</TableCell>
-            <TableCell>Үзлэгийн өдөр</TableCell>
-            <TableCell>Овог</TableCell>
-            <TableCell>Нэр</TableCell>
-            <TableCell>Үзлэгийн төрөл</TableCell>
-            <TableCell>Онош</TableCell>
-            <TableCell>Хийгдсэн ажилбар</TableCell>
-            <TableCell>Үйлдлүүд</TableCell>
+            <TableCell className="fw-600">№</TableCell>
+            <TableCell className="fw-600">Үзлэгийн өдөр</TableCell>
+            <TableCell className="fw-600">Овог</TableCell>
+            <TableCell className="fw-600">Нэр</TableCell>
+            <TableCell className="fw-600">Үзлэгийн төрөл</TableCell>
+            <TableCell className="fw-600">Онош</TableCell>
+            <TableCell className="fw-600">Хийгдсэн ажилбар</TableCell>
+            <TableCell className="fw-600">Үйлдлүүд</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -138,9 +138,14 @@ export default function DataTable() {
               <TableCell>{row.diagnosis}</TableCell>
               <TableCell>{row.ajilbar}</TableCell>
               <TableCell>
-                <IconButton aria-label="delete" color="warning">
-                  <RemoveRedEyeIcon />
-                </IconButton>
+                <Tooltip title="Дэлгэрэнгүйг харах">
+                  <IconButton
+                    sx={{ background: "#3076cb", color: "#ffff" }}
+                    className="mr-10"
+                  >
+                    <RemoveRedEyeIcon />
+                  </IconButton>
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}

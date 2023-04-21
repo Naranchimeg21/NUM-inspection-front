@@ -16,11 +16,14 @@ import DataTable from "../../components/dataTable";
 import VitalData from "./data/vitalData";
 import { useEffect } from "react";
 import vitalAxios from "../../../../utils/vitalnetworkActions";
+import MedicineModal from "./modal/medicineModal";
+import InstructionData from "./data/instructionData";
 
 export default function UserMasterData({ data }) {
   const [vitalOpen, setIsVital] = useState(false);
   const [inspecOpen, setInspecOpen] = useState(false);
   const [medicOpen, setMedicOpen] = useState(false);
+  const [medicineOpen, setMedicineOpen] = useState(false);
   const [value, setValue] = useState(0);
   const closeInpecModal = () => {
     setInspecOpen(false);
@@ -173,7 +176,7 @@ export default function UserMasterData({ data }) {
                   <Image
                     preview={false}
                     className="minw-70 h-70 wp-40 "
-                    src="/assets/uzleg.png"
+                    src="/assets/emchilgee.png"
                   />
                   <div>
                     <h4 className="m-5"> Эмчилгээний заавар</h4>
@@ -185,13 +188,13 @@ export default function UserMasterData({ data }) {
               <Card
                 className="maxnw-400"
                 hoverable
-                onClick={() => setMedicOpen(true)}
+                onClick={() => setMedicineOpen(true)}
               >
                 <div className="col-content center-center">
                   <Image
                     preview={false}
                     className="minw-70 h-70 wp-40 "
-                    src="/assets/em.png"
+                    src="/assets/emiinjor.png"
                   />
                   <div>
                     <h4 className="m-5">Эмийн жор</h4>
@@ -206,17 +209,21 @@ export default function UserMasterData({ data }) {
                 <Tab label="Үзлэгийн мэдээлэл" />
                 <Tab label="Амин үзүүлэлтийн мэдээлэлүүд" />
                 <Tab label="Эмчилгээний зааврууд" />
+                <Tab label="Эмийн жорууд" />
               </Tabs>
             </Box>
             <Box>
               <TabPanel value={value} index={0}>
-                <DataTable />
+                <DataTable id={data.id} />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <VitalData />
+                <VitalData id={data.id} />
               </TabPanel>
               <TabPanel value={value} index={2}>
                 emchilgee
+              </TabPanel>
+              <TabPanel value={value} index={3}>
+                <InstructionData id={data.id} />
               </TabPanel>
             </Box>
           </Box>
@@ -237,6 +244,11 @@ export default function UserMasterData({ data }) {
         className="nch-80"
       />
       <MedicModal open={medicOpen} setOpen={setMedicOpen} />
+      <MedicineModal
+        id={data.id}
+        open={medicineOpen}
+        setOpen={setMedicineOpen}
+      />
     </Box>
   );
 }

@@ -10,8 +10,7 @@ import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Image } from "antd";
-
+import PeopleIcon from "@mui/icons-material/People";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -38,11 +37,13 @@ const Sidebar = () => {
     if (path === "/") return "Хянах самбар";
     if (path === "/inspection" || path === "/inspection/add")
       return "Үзлэг, оношилгоо";
+    if (path === "/user") return "Үйлчлүүлэгчид";
     if (path === "/report") return "Тайлан";
   });
 
   return (
     <Box
+      className="card-shadow"
       sx={{
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
@@ -54,11 +55,12 @@ const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#1B4588 !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#1B4588!important",
         },
+        borderRight: `1px solid ${colors.grey[700]}`, 
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
@@ -89,8 +91,15 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
+              title="Үйлчлүүлэгчид"
+              to="/user"
+              icon={<PeopleIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
               title="Тайлан"
-              to="/schedule"
+              to="/report"
               icon={<ContentPasteIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -104,7 +113,7 @@ const Sidebar = () => {
               position: "fixed",
               bottom: 0,
               left: 0,
-              background: colors.primary[800],
+              background: colors.primary[900],
               paddingLeft: isCollapsed ? "20px" : 0,
             }}
           >
@@ -112,7 +121,7 @@ const Sidebar = () => {
               onClick={() => setIsCollapsed(!isCollapsed)}
               icon={isCollapsed ? <ArrowForwardIcon /> : <ArrowBackIcon />}
               style={{
-                color: colors.primary[300],
+                color: colors.primary[400],
               }}
             ></MenuItem>
           </div>
