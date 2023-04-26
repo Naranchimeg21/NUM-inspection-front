@@ -8,6 +8,7 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Roboto", sans-serif;
+  /* margin-left: 270px; */
 }
 
 .app {
@@ -34,7 +35,7 @@ body,
   background: #555;
 }
 
-.content {
+.content-y {
   overflow-y: auto;
 }
 .content-x {
@@ -261,6 +262,16 @@ body,
   min-height: 80vh !important;
   height: 80vh !important;
 }
+.nch-60 {
+  max-height: 60vh !important;
+  min-height: 60vh !important;
+  height: 60vh !important;
+}
+.nch-50 {
+  max-height: 50vh !important;
+  min-height: 50vh !important;
+  height: 50vh !important;
+}
 .maxnh-20 {
   max-height: 20px !important;
 }
@@ -269,6 +280,9 @@ body,
 }
 .maxnh-40 {
   max-height: 40px !important;
+}
+.minh-60 {
+  min-height: 60px !important;
 }
 .maxnh-50 {
   max-height: 50px !important;
@@ -1437,7 +1451,9 @@ body,
 .wb-keep {
   word-break: keep-all !important;
 }
-
+.z-index {
+  z-index: 5000 !important;
+}
 /* antd */
 .ant-card .ant-card-body {
   padding: 10px;

@@ -9,16 +9,22 @@ import Report from "./scenes/report";
 import Inspection from "./scenes/inspection";
 import InspectionAdd from "./scenes/inspection/add";
 import User from "./scenes/user";
+import { useState } from "react";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar />
-          <main className="content">
+          <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+          <main
+            className="content"
+            style={{ marginLeft: isCollapsed ? "80px" : "270px" }}
+          >
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/inspection" element={<Inspection />} />

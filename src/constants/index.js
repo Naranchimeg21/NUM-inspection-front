@@ -1,12 +1,7 @@
 export const treatmentType = () => [
   { value: "Боолт" },
-  { value: "Д", label: "Увч" },
-  { value: "UVCH", label: "Увч" },
-  { value: "UVCH", label: "Увч" },
-  { value: "UVCH", label: "Увч" },
-  { value: "UVCH", label: "Увч" },
-  { value: "UVCH", label: "Увч" },
-  { value: "UVCH", label: "Увч" },
+  { value: "Дусал, тариа" },
+  { value: "Бусад" },
 ];
 
 export const rehabilationType = () => [
@@ -17,5 +12,5 @@ export const rehabilationType = () => [
   { value: "Массаж" },
   { value: "Увч шарлагын эмчилгээ" },
   { value: "Увч" },
-  { value: "Увч" },
+  { value: "Бусад" },
 ];

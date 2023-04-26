@@ -28,10 +28,9 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isCollapsed, setIsCollapsed = () => {} }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState(() => {
     const path = window.location.pathname;
     if (path === "/") return "Хянах самбар";
@@ -58,9 +57,11 @@ const Sidebar = () => {
           color: "#1B4588 !important",
         },
         "& .pro-menu-item.active": {
-          color: "#1B4588!important",
+          color: "#1B4588 !important",
         },
-        borderRight: `1px solid ${colors.grey[700]}`, 
+        borderRight: `1px solid ${colors.grey[700]}`,
+        position: "fixed",
+        minHeight: "100vh",
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
@@ -122,6 +123,12 @@ const Sidebar = () => {
               icon={isCollapsed ? <ArrowForwardIcon /> : <ArrowBackIcon />}
               style={{
                 color: colors.primary[400],
+              }}
+              sx={{
+                transition: "margin-right 2s",
+                "& .active": {
+                  marginRig: "#1B4588 !important",
+                },
               }}
             ></MenuItem>
           </div>

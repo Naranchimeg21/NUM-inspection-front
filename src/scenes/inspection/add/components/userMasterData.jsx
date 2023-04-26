@@ -4,7 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import { Box, ListItemAvatar, ListItemButton, Tab, Tabs } from "@mui/material";
-import { Avatar, Card, Empty, Image } from "antd";
+import { Avatar, Card, Empty, Image, Select } from "antd";
 import Face3Icon from "@mui/icons-material/Face3";
 import Grid from "@mui/material/Grid";
 import Header from "../../../../components/Header";
@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import vitalAxios from "../../../../utils/vitalnetworkActions";
 import MedicineModal from "./modal/medicineModal";
 import InstructionData from "./data/instructionData";
-
+const { Option } = Select;
 export default function UserMasterData({ data }) {
   const [vitalOpen, setIsVital] = useState(false);
   const [inspecOpen, setInspecOpen] = useState(false);
@@ -231,7 +231,6 @@ export default function UserMasterData({ data }) {
       ) : (
         <Empty />
       )}
-
       <VitalModal
         open={vitalOpen}
         setOpen={setIsVital}
@@ -239,10 +238,10 @@ export default function UserMasterData({ data }) {
         className="nch-80"
       />
       <InspectionModal
-        open={inspecOpen}
-        setOpen={setInspecOpen}
+        isOpen={inspecOpen}
+        setIsOpen={setInspecOpen}
         className="nch-80"
-      />
+      />{" "}
       <MedicModal open={medicOpen} setOpen={setMedicOpen} />
       <MedicineModal
         id={data.id}
