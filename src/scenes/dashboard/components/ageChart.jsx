@@ -1,11 +1,10 @@
 import React from "react";
 import { Bar } from "@ant-design/plots";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-const AgeChart = ({color}) => {
+const AgeChart = ({ color }) => {
   const data = [
     {
       type: `18-22`,

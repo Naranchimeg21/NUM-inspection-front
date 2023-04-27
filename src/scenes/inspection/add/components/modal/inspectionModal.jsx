@@ -24,40 +24,63 @@ import Step2 from "../steps/inspection.step2";
 import Step3 from "../steps/inspection.step3";
 import Step1 from "../steps/inspection.step1";
 import inspectionAxios from "../../../../../utils/inspectionnetworkActions";
+import { useEffect } from "react";
+import { SuccessAlert } from "../utils/successAlert";
+import { ErrorAlert } from "../utils/errorAlert";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({ isOpen, setIsOpen = () => {} }) {
+export default function FullScreenDialog({ id, isOpen, setIsOpen = () => {} }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const handleClose = () => {
     setIsOpen(false);
+    setSelected(0);
+    form.setFieldsValue("");
+    setQuestionsList([]);
   };
   const [selected, setSelected] = useState(0);
   const [isPop, setIsPop] = useState(false);
   const [questionsList, setQuestionsList] = useState([]);
+  const [data, setData] = useState({});
+  const [undsenOnosh, setUndsenOnosh] = useState({ name: "", value: "" });
   const { useForm } = Form;
   const [form] = useForm();
+  const [alerts, setAlerts] = useState(false);
+  const [alerte, setAlerte] = useState(false);
+  const dialogClose = (alert) => {
+    setAlerts(alert);
+    setAlerte(alert);
+  };
   const onSubmit = (value) => {
-    console.log(value);
-    // inspectionAxios
-    //   .post("/inspection", value)
-    //   .then((res) => {
-    //     console.log(res.data.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    setData((data) => ({
+      ...data,
+      ...value,
+    }));
+    console.log(data);
   };
   const onClose = () => {
     setIsPop(false);
   };
-  // React.useEffect(() => {
-  //   if (!open) {
-  //     setSelected(0);
-  //   }
-  // }, [open]);
+  useEffect(() => {
+    if (selected > 2) {
+      inspectionAxios
+        .post("/", {
+          data,
+          undsenOnosh,
+          questions: questionsList,
+          userId: id,
+        })
+        .then((res) => {
+          handleClose();
+          setAlerts(true);
+        })
+        .catch((error) => {
+          setAlerte(true);
+        });
+    }
+  }, [data]);
   return (
     <Dialog
       fullScreen
@@ -86,14 +109,13 @@ export default function FullScreenDialog({ isOpen, setIsOpen = () => {} }) {
             Үзлэг бүртгэл
           </Typography>
           <Button autoFocus color="inherit" onClick={handleClose}>
-            Хадгалах
+            Гарах
           </Button>
         </Toolbar>
       </AppBar>
       <DialogContent
         sx={{ background: colors.primary[500], color: colors.grey[100] }}
       >
-       
         <InspectionStepper selected={selected} />
         <Box
           sx={{ background: colors.primary[400] }}
@@ -109,13 +131,12 @@ export default function FullScreenDialog({ isOpen, setIsOpen = () => {} }) {
           >
             {selected === 0 && (
               <Step1
-                form={form}
                 questionsList={questionsList}
                 setQuestionsList={setQuestionsList}
               />
             )}
-            {selected === 1 && <Step2 form={form} />}
-            {selected === 2 && <Step3 form={form} />}
+            {selected === 1 && <Step2 />}
+            {selected === 2 && <Step3 setUndsenOnosh={setUndsenOnosh} />}
           </Form>
         </Box>
         <div>
@@ -138,6 +159,7 @@ export default function FullScreenDialog({ isOpen, setIsOpen = () => {} }) {
                 color="success"
                 variant="contained"
                 onClick={() => {
+                  if (selected === 1) form.submit();
                   setSelected(selected + 1);
                 }}
               >
@@ -148,6 +170,7 @@ export default function FullScreenDialog({ isOpen, setIsOpen = () => {} }) {
                 color="success"
                 variant="contained"
                 onClick={() => {
+                  setSelected(selected + 1);
                   form.submit();
                 }}
               >
@@ -157,6 +180,16 @@ export default function FullScreenDialog({ isOpen, setIsOpen = () => {} }) {
           </Box>
         </div>
       </DialogContent>
+      <SuccessAlert
+        text="Үйлчлүүлэгчийн үзлэгийн мэдээллийг амжилттай бүртгэлээ."
+        open={alerts}
+        setOpen={dialogClose}
+      />
+      <ErrorAlert
+        text="Үйлчлүүлэгчийн үзлэгийн мэдээлэл бүртгэхэд алдаа гарлаа."
+        open={alerte}
+        setOpen={dialogClose}
+      />
     </Dialog>
   );
 }

@@ -29,7 +29,13 @@ import { useEffect } from "react";
 import customAxios from "../../../../../utils/customAxios";
 import { AddCircleOutlineOutlined } from "@mui/icons-material";
 
-const DiagnosisModal = ({ id, open, setOpen = () => {} }) => {
+const DiagnosisModal = ({
+  id,
+  open,
+  setOpen = () => {},
+  setName = () => {},
+  setCode = () => {},
+}) => {
   const pageSize = 5;
   const [form] = Form.useForm();
   const [pageNum, setPageNum] = useState(0);
@@ -196,15 +202,28 @@ const DiagnosisModal = ({ id, open, setOpen = () => {} }) => {
                 <List className="content-y  border">
                   {items.map((item, idx) => (
                     <ListItem
-                      className="wp-100"
+                      className="wp-100 h-100 "
                       secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          onClick={() => {
+                            setName(item.name);
+                            setCode(item.value);
+                            setOpen(false);
+                          }}
+                        >
                           <AddCircleOutlineOutlined />
                         </IconButton>
                       }
                     >
                       <ListItemAvatar>
-                        <Avatar>{item.value}</Avatar>
+                        <Avatar
+                          sx={{ width: 50, height: 50 }}
+                          variant="rounded"
+                        >
+                          {item.value}
+                        </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={`${item.name}`}

@@ -1,21 +1,6 @@
-import {
-  PlusOneOutlined,
-  TroubleshootSharp,
-  UploadFile,
-} from "@mui/icons-material";
+import { UploadFile } from "@mui/icons-material";
 import { Grid, MenuItem, Select, Tab, Tabs, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import {
-  Card,
-  Col,
-  Descriptions,
-  Form,
-  Image,
-  Input,
-  InputNumber,
-  Row,
-  Upload,
-} from "antd";
+import { Form, Input, InputNumber, Upload } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
 import inspectionAxios from "../../../../../utils/inspectionnetworkActions";
@@ -74,56 +59,44 @@ const Step2 = () => {
 
       <Grid item md={6}>
         <Form.Item label="Эмчийн үзлэг/Амбуляторт/:" name="emchiinUzleg">
-          <Select
-            label="Сонгоно уу"
-            value={0}
-            onChange={handleChange}
-            fullWidth
-            size="small"
-          >
-            <MenuItem value={10}>Анхан</MenuItem>
-            <MenuItem value={20}>Давтан</MenuItem>
+          <Select label="Сонгоно уу" value="Анхан" fullWidth size="small">
+            <MenuItem value="Анхан">Анхан</MenuItem>
+            <MenuItem value="Давтан">Давтан</MenuItem>
           </Select>
         </Form.Item>
-        <Form.Item label="Үзлэгийн төрөл нэр:" name="uzlegiinTurul">
+        {/* <Form.Item label="Үзлэгийн төрөл нэр:" name="uzlegiinTurulNer">
           <Input />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="Үзлэгийн төрөл код:" name="uzlegiinTurul">
           <Input />
         </Form.Item>
-        <Form.Item label="Хүчирхийлэлд өртсөн эсэх" name="undsenOnosh">
-          <Select
-            label="Сонгоно уу"
-            value={0}
-            onChange={handleChange}
-            fullWidth
-            size="small"
-          >
-            <MenuItem value={30}>Тийм</MenuItem>
-            <MenuItem value={30}>Үгүй</MenuItem>
+        <Form.Item
+          label="Хүчирхийлэлд өртсөн эсэх"
+          name="huchirhiileldUrtsunEseh"
+        >
+          <Select label="Сонгоно уу" value={true} fullWidth size="small">
+            <MenuItem value={true}>Тийм</MenuItem>
+            <MenuItem value={false}>Үгүй</MenuItem>
           </Select>
         </Form.Item>
-        <Form.Item label="Хөдөлмөр алдалтын хоног:" name="pressureRightDood">
+        <Form.Item
+          label="Хөдөлмөр алдалтын хоног:"
+          name="hudulmurAldaltiinHonog"
+        >
           <InputNumber />
         </Form.Item>
       </Grid>
       <Grid item md={6}>
         <Form.Item
           label="Эргэж холбогдох шаардлагатай эсэх"
-          name="pressureRightAverage"
+          name="ergejHolbogdohEseh"
         >
-          <Select
-            label="Сонгоно уу"
-            value={0}
-            onChange={handleChange}
-            fullWidth
-            size="small"
-          >
-            <MenuItem value={30}>Тийм</MenuItem>
-            <MenuItem value={30}>Үгүй</MenuItem>
+          <Select label="Сонгоно уу" value={false} fullWidth size="small">
+            <MenuItem value={true}>Тийм</MenuItem>
+            <MenuItem value={false}>Үгүй</MenuItem>
           </Select>
         </Form.Item>
-        <Form.Item label="Шалтгаан:" name="pressureRightAdditional">
+        <Form.Item label="Шалтгаан:" name="shaltgaan">
           <TextArea />
         </Form.Item>
         <Form.Item

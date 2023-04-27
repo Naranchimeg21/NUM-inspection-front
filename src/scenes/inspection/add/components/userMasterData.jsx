@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import vitalAxios from "../../../../utils/vitalnetworkActions";
 import MedicineModal from "./modal/medicineModal";
 import InstructionData from "./data/instructionData";
+import InspectionData from "./data/inspectionData";
 const { Option } = Select;
 export default function UserMasterData({ data }) {
   const [vitalOpen, setIsVital] = useState(false);
@@ -214,7 +215,7 @@ export default function UserMasterData({ data }) {
             </Box>
             <Box>
               <TabPanel value={value} index={0}>
-                <DataTable id={data.id} />
+                <InspectionData id={data.id} />
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <VitalData id={data.id} />
@@ -238,11 +239,12 @@ export default function UserMasterData({ data }) {
         className="nch-80"
       />
       <InspectionModal
+        id={data.id}
         isOpen={inspecOpen}
         setIsOpen={setInspecOpen}
         className="nch-80"
-      />{" "}
-      <MedicModal open={medicOpen} setOpen={setMedicOpen} />
+      />
+      <MedicModal id={data.id} open={medicOpen} setOpen={setMedicOpen} />
       <MedicineModal
         id={data.id}
         open={medicineOpen}
