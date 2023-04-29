@@ -7,15 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-import {
-  Box,
-  DialogContent,
-  Divider,
-  FormControl,
-  MenuItem,
-  Select,
-  useTheme,
-} from "@mui/material";
+import { Box, DialogContent, Divider, useTheme } from "@mui/material";
 import { tokens } from "../../../../../theme";
 import { useState } from "react";
 import { Form } from "antd";
@@ -40,6 +32,7 @@ export default function FullScreenDialog({ id, isOpen, setIsOpen = () => {} }) {
     form.setFieldsValue("");
     setQuestionsList([]);
   };
+
   const [selected, setSelected] = useState(0);
   const [isPop, setIsPop] = useState(false);
   const [questionsList, setQuestionsList] = useState([]);
@@ -77,6 +70,7 @@ export default function FullScreenDialog({ id, isOpen, setIsOpen = () => {} }) {
           setAlerts(true);
         })
         .catch((error) => {
+          setSelected(selected - 1);
           setAlerte(true);
         });
     }
@@ -118,8 +112,8 @@ export default function FullScreenDialog({ id, isOpen, setIsOpen = () => {} }) {
       >
         <InspectionStepper selected={selected} />
         <Box
-          sx={{ background: colors.primary[400] }}
           className="nch-60 m-20 p-20"
+          sx={{ background: colors.primary[400] }}
           display="flex"
         >
           <Form
@@ -145,7 +139,6 @@ export default function FullScreenDialog({ id, isOpen, setIsOpen = () => {} }) {
           </Box>
           <Box width="100%" display="flex" justifyContent="space-between">
             <Button
-              color="success"
               variant="contained"
               disabled={selected === 0 && true}
               onClick={() => {
@@ -156,7 +149,6 @@ export default function FullScreenDialog({ id, isOpen, setIsOpen = () => {} }) {
             </Button>
             {selected < 2 ? (
               <Button
-                color="success"
                 variant="contained"
                 onClick={() => {
                   if (selected === 1) form.submit();
@@ -167,7 +159,6 @@ export default function FullScreenDialog({ id, isOpen, setIsOpen = () => {} }) {
               </Button>
             ) : (
               <Button
-                color="success"
                 variant="contained"
                 onClick={() => {
                   setSelected(selected + 1);

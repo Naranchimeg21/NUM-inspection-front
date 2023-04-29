@@ -1,22 +1,17 @@
 import Topbar from "../../global/Topbar";
 import * as React from "react";
-import { Button, Card, Divider, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import DataTable from "../components/dataTable";
-import SearchIcon from "@mui/icons-material/Search";
 import UserModal from "./components/modal/userModal";
-import Step2 from "./components/steps/inspection.step2";
-import Step3 from "./components/steps/inspection.step3";
 import Header from "../../../components/Header";
 import ListItems from "./components/listItems";
-import { Col, Row } from "antd";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import UserMasterData from "./components/userMasterData";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import { useEffect } from "react";
-import vitalAxios from "../../../utils/vitalnetworkActions";
 import inspectionAxios from "../../../utils/inspectionnetworkActions";
+import userAxios from "../../../utils/userAxios";
 
 const InspectionAdd = () => {
   const [open, setOpen] = useState(false);
@@ -27,11 +22,11 @@ const InspectionAdd = () => {
   const id = queryParams.get("id");
   //nahh just for test
   useEffect(() => {
-    inspectionAxios
-      .get("/user", { params: { id } })
+    userAxios
+      .get(`/users/${id}`)
       .then((res) => {
-        if (id) setUserMaster(res.data.data[0]);
-        else setUser(res.data.data);
+        if (id) setUserMaster(res.data);
+        else setUser(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -44,8 +39,7 @@ const InspectionAdd = () => {
       <Grid container rowSpacing={2}>
         {!id && (
           <Grid item xs={12} md={4}>
-            <Card className="ml-20 mt-20 mb-20">
-              {" "}
+            <Box className="ml-20 mt-20 mb-20 card-shadow">
               <Box
                 m="20px"
                 height="95%"
@@ -54,7 +48,7 @@ const InspectionAdd = () => {
                 justifyContent="space-between"
               >
                 <div style={{ height: "90%" }}>
-                  <Box mx="20px">
+                  <Box mx="20px" mt="20px">
                     <Header title="Үйлчлүүлэгчдээс сонгоно уу" />
                     <Box
                       mt="20px"
@@ -68,7 +62,6 @@ const InspectionAdd = () => {
                         size="small"
                       />
                       <Button
-                        color="success"
                         variant="contained"
                         size="large"
                         startIcon={<AddCircleOutlineIcon />}
@@ -87,13 +80,19 @@ const InspectionAdd = () => {
                   </Box>
                 </div>
               </Box>
-            </Card>
+            </Box>
           </Grid>
         )}
         <Grid item xs={12} md={id ? 12 : 8}>
-          <Card className="m-20" style={{ height: "100%", padding: "20px" }}>
+          <Box
+            className="m-20 card-shadow"
+            style={{
+              height: "100%",
+              padding: "20px",
+            }}
+          >
             <UserMasterData data={userMaster} />
-          </Card>
+          </Box>
         </Grid>
       </Grid>
       <UserModal open={open} setOpen={setOpen} />

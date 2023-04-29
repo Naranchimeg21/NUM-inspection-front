@@ -6,7 +6,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { DualAxes } from "@ant-design/plots";
-import { Line } from "@ant-design/plots";
 import dayjs from "dayjs";
 
 export default function CompareDialog({
@@ -15,26 +14,6 @@ export default function CompareDialog({
   open,
   handleClose = () => {},
 }) {
-  //   const config = {
-  //   data,
-  //   xField: "createdAt",
-  //   yField:"pulse"
-  //   xAxis: {
-  //     label: {
-  //       formatter: (v) => dayjs(v).format("YYYY-MM-DD"),
-  //     },
-  //   },
-
-  //   seriesField: "pulse",
-
-  //   color: () => {
-  //     return title === "Даралт"
-  //       ? "#F4664A"
-  //       : title === "Зүрхний пульс"
-  //       ? "#30BF78"
-  //       : "#FAAD14";
-  //   },
-  // };
   const config = {
     data: [data, data, data],
 

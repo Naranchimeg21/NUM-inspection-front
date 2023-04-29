@@ -18,7 +18,7 @@ export default function PinnedSubheaderList({ data, setUserMaster }) {
       sx={{
         width: "100%",
         maxWidth: 500,
-        bgcolor: "background.paper",
+
         position: "relative",
         overflow: "auto",
         height: "100%",

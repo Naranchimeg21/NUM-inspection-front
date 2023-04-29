@@ -1,19 +1,9 @@
-import { TroubleshootSharp } from "@mui/icons-material";
-import {
-  Button,
-  Grid,
-  MenuItem,
-  Select,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { Card, Col, Descriptions, Form, Image, Input, Row } from "antd";
+import { Button, Grid, MenuItem, Select, Typography } from "@mui/material";
+import { Form, Input } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
 import DiagnosisModal from "../modal/diagnosisModal";
-import { useRef } from "react";
+
 const Step3 = ({ setUndsenOnosh = () => {} }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
@@ -65,7 +55,6 @@ const Step3 = ({ setUndsenOnosh = () => {} }) => {
             </Form>
             <Form.Item label="Оношийн мэдээлэл:">
               <Button
-                color="success"
                 variant="contained"
                 onClick={() => {
                   setOpen(true);

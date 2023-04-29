@@ -1,6 +1,13 @@
 import * as React from "react";
-import { Form, Input, Modal, Select } from "antd";
-import { Button, Grid, Stepper } from "@mui/material";
+import { Form, Input, Select } from "antd";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+} from "@mui/material";
 import { useState } from "react";
 
 const { Option } = Select;
@@ -9,101 +16,118 @@ const MedicModal = ({ open, setOpen = () => {} }) => {
   const [type, setType] = useState();
   return (
     <>
-      <Modal
-        title="Эмчилгээний заавар бүртгэл"
-        width="50%"
+      <Dialog
+        fullWidth
+        maxWidth="md"
+        disableEscapeKeyDown
+        className="p-20"
         open={open}
-        maskClosable={false}
-        okText="Хадгалах"
-        cancelText="Болих"
-        okButtonProps={{ style: { backgroundColor: "green" } }}
-        onCancel={() => setOpen(false)}
-        bodyStyle={{ height: "70vh" }}
+        onClose={() => setOpen(true)}
       >
-        <Form wrapperCol={{ span: 16 }} labelCol={{ span: 8 }}>
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <Form.Item label="Оношийн нэр">
-                <Input placeholder="its my testtt" />
-              </Form.Item>
-              <Form.Item label="Төрөл">
-                <Select defaultValue="" onSelect={(value) => setType(value)}>
-                  <Option value="1">Сэргээн засах эмчилгээ</Option>
-                  <Option value="2">Энгийн</Option>
-                </Select>
-              </Form.Item>
+        <DialogTitle>Эмийн жор бүртгэх</DialogTitle>
+        <DialogContent>
+          <Form wrapperCol={{ span: 16 }} labelCol={{ span: 8 }}>
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <Form.Item label="Онош">
+                  <Input placeholder="А09.1" />
+                </Form.Item>
+                <Form.Item label="Төрөл">
+                  <Select defaultValue="" onSelect={(value) => setType(value)}>
+                    <Option value="1">Сэргээн засах эмчилгээ</Option>
+                    <Option value="2">Энгийн</Option>
+                  </Select>
+                </Form.Item>
 
-              {type && (
-                <>
-                  <Form.Item label="Хийгдэх эмчилгээ">
-                    <Input placeholder="its my testtt" />
-                  </Form.Item>
-                  <Form.Item label="Хэдэн удаа">
-                    <Input placeholder="its my testtt" />
-                  </Form.Item>
-                  {type == 1 && (
-                    <Form.Item label="Талбай">
-                      <Input placeholder="its my testtt" />
+                {type && (
+                  <>
+                    <Form.Item label="Хийгдэх эмчилгээ">
+                      <Input placeholder="Дусал тариа" />
                     </Form.Item>
-                  )}
-                </>
-              )}
-            </Grid>
-            <Grid item xs={6}>
-              <Form.Item label="Оношийн код">
-                <Input placeholder="its my testtt" />
-              </Form.Item>
-              <Form.Item label="Эмчилгээний нэр">
-                {type == 1 ? (
-                  <Select defaultValue="">
-                    <Option value="1">Сэргээн засах эмчилгээ 1</Option>
-                    <Option value="2">Сэргээн засах эмчилгээ 2</Option>
-                  </Select>
-                ) : (
-                  <Select defaultValue="">
-                    <Option value="1">Энгийн эмчилгээ 1</Option>
-                    <Option value="2">Энгийн эмчилгээ 2</Option>
-                  </Select>
+                    <Form.Item label="Хэдэн удаа">
+                      <Input placeholder="" />
+                    </Form.Item>
+                    {type == 1 && (
+                      <Form.Item label="Талбай">
+                        <Input placeholder="" />
+                      </Form.Item>
+                    )}
+                  </>
                 )}
-              </Form.Item>
-              {type && (
-                <>
-                  <Form.Item label="Эрхтэн">
-                    <Input placeholder="its my testtt" />
-                  </Form.Item>
-                  {type == 2 ? (
-                    <Form.Item label="Тун">
-                      <Input placeholder="its my testtt" />
-                    </Form.Item>
-                  ) : (
-                    <Form.Item label="Хугацаа">
-                      <Input placeholder="its my testtt" />
-                    </Form.Item>
-                  )}
-                  {type == 1 && (
-                    <Form.Item label="Давтамж">
-                      <Input placeholder="its my testtt" />
-                    </Form.Item>
-                  )}
-                </>
-              )}
-            </Grid>
-            {type && (
-              <Grid item sx={12}>
-                <Button
-                  color="success"
-                  variant="contained"
-                  size="medium"
-                  className="w-100"
-                  // onClick={() => form.submit()}
-                >
-                  Эмчилгээний заавар нэмэх
-                </Button>
               </Grid>
-            )}
-          </Grid>
-        </Form>
-      </Modal>
+              <Grid item xs={6}>
+                <Form.Item label="Мэдээлэл оруулах">
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    // onClick={() => form.submit()}
+                  >
+                    Үзлэг сонгох
+                  </Button>
+                </Form.Item>
+                <Form.Item label="Эмчилгээний нэр">
+                  {type == 1 ? (
+                    <Select defaultValue="">
+                      <Option value="1">Сэргээн засах эмчилгээ 1</Option>
+                      <Option value="2">Сэргээн засах эмчилгээ 2</Option>
+                    </Select>
+                  ) : (
+                    <Select defaultValue="">
+                      <Option value="1">Энгийн эмчилгээ 1</Option>
+                      <Option value="2">Энгийн эмчилгээ 2</Option>
+                    </Select>
+                  )}
+                </Form.Item>
+                {type && (
+                  <>
+                    <Form.Item label="Эрхтэн">
+                      <Input />
+                    </Form.Item>
+                    {type == 2 ? (
+                      <Form.Item label="Тун">
+                        <Input />
+                      </Form.Item>
+                    ) : (
+                      <Form.Item label="Хугацаа">
+                        <Input />
+                      </Form.Item>
+                    )}
+                    {type == 1 && (
+                      <Form.Item label="Давтамж">
+                        <Input />
+                      </Form.Item>
+                    )}
+                  </>
+                )}
+              </Grid>
+              <Button
+                variant="contained"
+                size="medium"
+                className="mr-50 ml-50 mt-20"
+                fullWidth
+                // onClick={() => form.submit()}
+              >
+                Эмчилгээний заавар нэмэх
+              </Button>
+            </Grid>
+          </Form>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained">Хадгалах</Button>
+
+          <Button onClick={() => setOpen(false)}>Болих</Button>
+        </DialogActions>
+        {/* <SuccessAlert
+          text="Үйлчлүүлэгчийн эмийн жор амжилттай бүртгэлээ."
+          open={alerts}
+          setOpen={handleClose}
+        />
+        <ErrorAlert
+          text="Үйлчлүүлэгчийн эмийн жорыг бүртгэхэд алдаа гарлаа."
+          open={alerte}
+          setOpen={handleClose}
+        /> */}
+      </Dialog>
     </>
   );
 };

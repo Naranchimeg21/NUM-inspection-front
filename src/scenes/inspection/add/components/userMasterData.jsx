@@ -1,34 +1,26 @@
 import * as React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
-import { Box, ListItemAvatar, ListItemButton, Tab, Tabs } from "@mui/material";
-import { Avatar, Card, Empty, Image, Select } from "antd";
-import Face3Icon from "@mui/icons-material/Face3";
+import { Box, Tab, Tabs, Card } from "@mui/material";
+import { Empty, Image } from "antd";
 import Grid from "@mui/material/Grid";
 import Header from "../../../../components/Header";
 import VitalModal from "./modal/vitalModal";
 import InspectionModal from "./modal/inspectionModal";
 import MedicModal from "./modal/medicModal";
 import { useState } from "react";
-import DataTable from "../../components/dataTable";
 import VitalData from "./data/vitalData";
 import { useEffect } from "react";
 import vitalAxios from "../../../../utils/vitalnetworkActions";
 import MedicineModal from "./modal/medicineModal";
 import InstructionData from "./data/instructionData";
 import InspectionData from "./data/inspectionData";
-const { Option } = Select;
+
 export default function UserMasterData({ data }) {
   const [vitalOpen, setIsVital] = useState(false);
   const [inspecOpen, setInspecOpen] = useState(false);
   const [medicOpen, setMedicOpen] = useState(false);
   const [medicineOpen, setMedicineOpen] = useState(false);
   const [value, setValue] = useState(0);
-  const closeInpecModal = () => {
-    setInspecOpen(false);
-  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -134,7 +126,6 @@ export default function UserMasterData({ data }) {
             <Grid item xs={6} md={3}>
               <Card
                 className="maxnw-400 col-content center-center"
-                hoverable
                 onClick={() => setIsVital(true)}
               >
                 <div className="col-content center-center">
@@ -150,11 +141,7 @@ export default function UserMasterData({ data }) {
               </Card>
             </Grid>
             <Grid item xs={6} md={3}>
-              <Card
-                className="maxnw-400"
-                hoverable
-                onClick={() => setInspecOpen(true)}
-              >
+              <Card className="maxnw-400" onClick={() => setInspecOpen(true)}>
                 <div className="col-content center-center">
                   <Image
                     preview={false}
@@ -168,11 +155,7 @@ export default function UserMasterData({ data }) {
               </Card>
             </Grid>
             <Grid item xs={6} md={3}>
-              <Card
-                className="maxnw-400"
-                hoverable
-                onClick={() => setMedicOpen(true)}
-              >
+              <Card className="maxnw-400" onClick={() => setMedicOpen(true)}>
                 <div className="col-content center-center">
                   <Image
                     preview={false}
@@ -186,11 +169,7 @@ export default function UserMasterData({ data }) {
               </Card>
             </Grid>
             <Grid item xs={6} md={3}>
-              <Card
-                className="maxnw-400"
-                hoverable
-                onClick={() => setMedicineOpen(true)}
-              >
+              <Card className="maxnw-400" onClick={() => setMedicineOpen(true)}>
                 <div className="col-content center-center">
                   <Image
                     preview={false}

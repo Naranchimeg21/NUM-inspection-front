@@ -14,10 +14,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router-dom";
 
-export default function UserDataTable({ data }) {
+export default function UserDataTable({ color, data }) {
   const router = useNavigate();
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ background: color }}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
         <caption>
           <Pagination
@@ -50,10 +50,10 @@ export default function UserDataTable({ data }) {
               </TableCell>
               <TableCell>{item.lastName}</TableCell>
               <TableCell>{item.firstName}</TableCell>
-              <TableCell>{item.register}</TableCell>
+              {/* <TableCell>{item.register}</TableCell>
               <TableCell>{item.isStudent ? "Оюутан" : "Ажилтан"}</TableCell>
               <TableCell>{item.branchSchool}</TableCell>
-              <TableCell>{item.major}</TableCell>
+              <TableCell>{item.major}</TableCell> */}
               <TableCell>
                 <IconButton
                   aria-label="delete"

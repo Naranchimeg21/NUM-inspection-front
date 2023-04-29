@@ -11,94 +11,10 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { IconButton, Pagination, PaginationItem, Tooltip } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
-function createData(date, lname, name, type, diagnosis, ajilbar) {
-  return { date, lname, name, type, diagnosis, ajilbar };
-}
+import dayjs from "dayjs";
 
-const rows = [
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-];
-
-export default function DataTable({ color }) {
+export default function DataTable({ data, color }) {
+  console.log("data", data);
   return (
     <TableContainer component={Paper} sx={{ background: color }}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
@@ -126,17 +42,32 @@ export default function DataTable({ color }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, idx) => (
-            <TableRow key={row.name}>
+          {data.map((row, idx) => (
+            <TableRow key={row.inspection.id}>
               <TableCell component="th" scope="row">
                 {idx + 1}
               </TableCell>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.lname}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.type}</TableCell>
-              <TableCell>{row.diagnosis}</TableCell>
-              <TableCell>{row.ajilbar}</TableCell>
+              <TableCell>
+                {dayjs(row.inspection.createdAt).format("YYYY-MM-DD")}
+              </TableCell>
+              {row.user && (
+                <>
+                  <TableCell>{row.user.lastName || ""}</TableCell>
+                  <TableCell>{row.user.firstName || ""}</TableCell>
+                </>
+              )}
+
+              <TableCell>{row.inspection.emchiinUzleg}</TableCell>
+              {row.inspection.isDiagnosis ? (
+                <TableCell>
+                  {row?.inspection?.undsenOnosh?.value} -
+                  {row?.inspection?.undsenOnosh?.name}
+                </TableCell>
+              ) : (
+                <TableCell>Онош тогтоогдоогүй </TableCell>
+              )}
+
+              <TableCell>{row.inspection.hiigdsenAjilbar}</TableCell>
               <TableCell>
                 <Tooltip title="Дэлгэрэнгүйг харах">
                   <IconButton

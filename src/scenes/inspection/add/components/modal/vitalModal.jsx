@@ -1,18 +1,15 @@
 import * as React from "react";
-import { Col, Form, Input, InputNumber, Modal, Row, Select } from "antd";
+import { Col, Form, Input, InputNumber, Row, Select } from "antd";
 import vitalAxios from "../../../../../utils/vitalnetworkActions";
-import { Alert, Snackbar } from "@mui/material";
 import { useState } from "react";
 import { SuccessAlert } from "../utils/successAlert";
 import { ErrorAlert } from "../utils/errorAlert";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-const { Option } = Select;
 const VitalModal = ({ open, setOpen = () => {}, id }) => {
   const { useForm } = Form;
   const [form] = useForm();
@@ -29,7 +26,7 @@ const VitalModal = ({ open, setOpen = () => {}, id }) => {
         setAlerte(true);
       });
   };
- 
+
   const handleClose = (alert) => {
     setAlerts(alert);
     setAlerte(alert);
@@ -129,11 +126,7 @@ const VitalModal = ({ open, setOpen = () => {}, id }) => {
         </DialogContent>
 
         <DialogActions>
-          <Button
-            color="success"
-            variant="contained"
-            onClick={() => form.submit()}
-          >
+          <Button variant="contained" onClick={() => form.submit()}>
             Хадгалах
           </Button>
 

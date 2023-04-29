@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -64,8 +63,8 @@ const Sidebar = ({ isCollapsed, setIsCollapsed = () => {} }) => {
         minHeight: "100vh",
       }}
     >
-      <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
+      <ProSidebar style={{ height: "100vh" }} collapsed={isCollapsed}>
+        <Menu style={{ height: "100vh" }} iconShape="square">
           <img
             alt=""
             preview={false}
@@ -83,7 +82,6 @@ const Sidebar = ({ isCollapsed, setIsCollapsed = () => {} }) => {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Typography></Typography> */}
             <Item
               title="Үзлэг, оношилгоо"
               to="/inspection"
@@ -114,7 +112,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed = () => {} }) => {
               position: "fixed",
               bottom: 0,
               left: 0,
-              background: colors.primary[900],
+              background: colors.primary[10],
               paddingLeft: isCollapsed ? "20px" : 0,
             }}
           >

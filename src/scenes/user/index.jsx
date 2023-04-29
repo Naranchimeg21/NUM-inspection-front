@@ -1,4 +1,4 @@
-import { Box } from "@mui/system";
+import { Box, useTheme } from "@mui/system";
 import Topbar from "../global/Topbar";
 import { useState } from "react";
 import Popover from "@mui/material/Popover";
@@ -8,12 +8,15 @@ import { Button, Divider, TextField } from "@mui/material";
 import UserDataTable from "./components/userDataTable";
 import { useEffect } from "react";
 import inspectionAxios from "../../utils/inspectionnetworkActions";
+import { tokens } from "../../theme";
+import userAxios from "../../utils/userAxios";
 
 const User = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState([]);
-  const [userId, setUserId] = useState("");
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -29,10 +32,10 @@ const User = () => {
   };
   //nahh just for test
   useEffect(() => {
-    inspectionAxios
-      .get("/user")
+    userAxios
+      .get("/users")
       .then((res) => {
-        setUser(res.data.data);
+        setUser(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -55,7 +58,7 @@ const User = () => {
             />
             <div>
               <Button
-                color="success"
+                sx={{ background: colors.primary[10] }}
                 aria-describedby={id}
                 variant="contained"
                 onClick={handleClick}
@@ -82,7 +85,7 @@ const User = () => {
         }
       />
       <Box m="20px">
-        <UserDataTable data={user} />
+        <UserDataTable color={colors.primary[400]} data={user} />
       </Box>
     </>
   );

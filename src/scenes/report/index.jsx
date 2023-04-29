@@ -6,14 +6,12 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Button, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
+import { Button } from "@mui/material";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 const Report = () => {
   const [value, setValue] = useState(dayjs("2022-04-17"));
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+
   return (
     <Box>
       <Topbar title="Үзлэгийн тайлан" subtitle="hghg" />
@@ -37,12 +35,7 @@ const Report = () => {
             />
           </DemoContainer>
         </LocalizationProvider>
-        <Button
-          variant="contained"
-          size="large"
-          color="success"
-          start={<CloudDownloadIcon />}
-        >
+        <Button variant="contained" size="large" start={<CloudDownloadIcon />}>
           Татах
         </Button>
       </Box>

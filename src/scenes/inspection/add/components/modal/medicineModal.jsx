@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Divider, Form, Input, InputNumber, Modal, Select } from "antd";
-import { Alert, Button, Grid, Snackbar } from "@mui/material";
+import { Divider, Form, Input, InputNumber } from "antd";
+import { Button, Grid } from "@mui/material";
 import { useState } from "react";
 import dayjs from "dayjs";
 import instructionAxios from "../../../../../utils/instructionNetwork";
@@ -12,7 +12,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { SuccessAlert } from "../utils/successAlert";
 import { ErrorAlert } from "../utils/errorAlert";
 
-const { Option } = Select;
 const MedicineModal = ({ id, open, setOpen = () => {} }) => {
   const { useForm } = Form;
   const [form] = useForm();
@@ -78,7 +77,6 @@ const MedicineModal = ({ id, open, setOpen = () => {} }) => {
                   <Input placeholder="Хоолны дараа ууна." />
                 </Form.Item>
                 <Button
-                  color="success"
                   variant="contained"
                   size="large"
                   width="100%"
@@ -146,7 +144,7 @@ const MedicineModal = ({ id, open, setOpen = () => {} }) => {
           </Form>
         </DialogContent>
         <DialogActions>
-          <Button color="success" variant="contained" onClick={onSubmit}>
+          <Button variant="contained" onClick={onSubmit}>
             Хадгалах
           </Button>
 

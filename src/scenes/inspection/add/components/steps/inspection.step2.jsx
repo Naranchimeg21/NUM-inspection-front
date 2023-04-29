@@ -1,5 +1,5 @@
 import { UploadFile } from "@mui/icons-material";
-import { Grid, MenuItem, Select, Tab, Tabs, Typography } from "@mui/material";
+import { Grid, MenuItem, Select, Typography } from "@mui/material";
 import { Form, Input, InputNumber, Upload } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";

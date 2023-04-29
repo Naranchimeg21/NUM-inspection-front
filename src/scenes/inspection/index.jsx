@@ -1,15 +1,5 @@
-import {
-  Button,
-  Divider,
-  Pagination,
-  PaginationItem,
-  Tab,
-  Tabs,
-  TextField,
-  useTheme,
-} from "@mui/material";
+import { Button, Divider, Tab, Tabs, TextField, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
-import Card from "@mui/material/Card";
 import { useState } from "react";
 import Topbar from "../global/Topbar";
 import DataTable from "./components/dataTable";
@@ -17,14 +7,14 @@ import ContactTable from "./components/contactTable";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { tokens } from "../../theme";
 import { useNavigate } from "react-router-dom";
+import inspectionAxios from "../../utils/inspectionnetworkActions";
+import { useEffect } from "react";
 
 const Inspection = () => {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [data, setData] = useState([]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -56,32 +46,28 @@ const Inspection = () => {
     );
   }
 
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Jim Red",
-      age: 32,
-      address: "London No. 2 Lake Park",
-    },
-  ];
+  useEffect(() => {
+    const fetchTreatments = async () => {
+      const [inspectionResponse, userResponse] = await Promise.all([
+        inspectionAxios.get("/all"),
+        inspectionAxios.get("user"),
+      ]);
+
+      const inspections = await inspectionResponse.data.data;
+      const users = await userResponse.data.data;
+
+      const result = inspections.map((inspection) => {
+        const user = users.find((p) => p.id === inspection.userId);
+        return {
+          inspection,
+          user,
+        };
+      });
+      console.log(result);
+      setData(result);
+    };
+    fetchTreatments();
+  }, []);
   return (
     <>
       <Topbar
@@ -99,7 +85,6 @@ const Inspection = () => {
             />
             <div>
               <Button
-                color="success"
                 aria-describedby={id}
                 variant="contained"
                 onClick={handleClick}
@@ -125,14 +110,13 @@ const Inspection = () => {
           </>
         }
       />
-      <Box m="20px" sx={{ background: colors.primary[400] }}>
+      <Box m="20px">
         <Box display="flex" justifyContent="space-between">
           <Tabs value={value} onChange={handleChange}>
             <Tab label="Нийт үзлэгийн мэдээлэл" />
             <Tab label="Эргэж холбогдох үзлэгийн мэдээлэл" />
           </Tabs>
           <Button
-            color="success"
             variant="contained"
             size="large"
             onClick={() => router("/inspection/add")}
@@ -141,10 +125,10 @@ const Inspection = () => {
           </Button>
         </Box>
         <TabPanel value={value} index={0}>
-          <DataTable color={colors.primary[400]} />
+          <DataTable data={data} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <ContactTable color={colors.primary[400]} />
+          <ContactTable />
         </TabPanel>
       </Box>
     </>
