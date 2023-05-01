@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import inspectionAxios from "../../utils/inspectionnetworkActions";
 import { tokens } from "../../theme";
 import userAxios from "../../utils/userAxios";
+import UserModal from "../inspection/add/components/modal/userModal";
 
 const User = () => {
   const theme = useTheme();
@@ -17,6 +18,7 @@ const User = () => {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -76,17 +78,27 @@ const User = () => {
                   horizontal: "left",
                 }}
               >
-                <Typography sx={{ p: 2 }}>
-                  The content of the Popover.
-                </Typography>
+                <Box p="10px">
+                  <img src="assets/csicon.png" width="100px" height="100px" />
+                </Box>
               </Popover>
             </div>
           </>
         }
       />
       <Box m="20px">
+        <Box display="flex" justifyContent="end" mb="20px">
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setIsOpen(true)}
+          >
+            Шинэ хэрэглэгч
+          </Button>
+        </Box>
         <UserDataTable color={colors.primary[400]} data={user} />
       </Box>
+      <UserModal open={isOpen} setOpen={setIsOpen} />
     </>
   );
 };

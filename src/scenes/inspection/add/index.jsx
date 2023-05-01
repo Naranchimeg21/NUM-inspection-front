@@ -1,6 +1,6 @@
 import Topbar from "../../global/Topbar";
 import * as React from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import UserModal from "./components/modal/userModal";
 import Header from "../../../components/Header";
@@ -12,21 +12,26 @@ import { useState } from "react";
 import { useEffect } from "react";
 import inspectionAxios from "../../../utils/inspectionnetworkActions";
 import userAxios from "../../../utils/userAxios";
+import { tokens } from "../../../theme";
 
 const InspectionAdd = () => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState([]);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const [userId, setUserId] = useState("");
   const [userMaster, setUserMaster] = useState({});
   const queryParams = new URLSearchParams(window.location.search);
   const id = queryParams.get("id");
   //nahh just for test
   useEffect(() => {
-    userAxios
-      .get(`/users/${id}`)
+    // userAxios
+    inspectionAxios
+      .get("/user")
+      //   .get(`/users/${id}`)
       .then((res) => {
-        if (id) setUserMaster(res.data);
-        else setUser(res.data);
+        if (id) setUserMaster(res.data.data);
+        else setUser(res.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -47,7 +52,7 @@ const InspectionAdd = () => {
                 flexDirection="column"
                 justifyContent="space-between"
               >
-                <div style={{ height: "90%" }}>
+                <div style={{ height: "90%", background: colors.primary[400] }}>
                   <Box mx="20px" mt="20px">
                     <Header title="Үйлчлүүлэгчдээс сонгоно уу" />
                     <Box
@@ -71,7 +76,12 @@ const InspectionAdd = () => {
                       </Button>
                     </Box>
                   </Box>
-                  <Box sx={{ py: 3, height: "90%" }}>
+                  <Box
+                    sx={{
+                      py: 3,
+                      height: "90%",
+                    }}
+                  >
                     <ListItems
                       data={user}
                       setUserMaster={setUserMaster}
@@ -86,9 +96,10 @@ const InspectionAdd = () => {
         <Grid item xs={12} md={id ? 12 : 8}>
           <Box
             className="m-20 card-shadow"
-            style={{
+            sx={{
               height: "100%",
               padding: "20px",
+              background: colors.primary[400],
             }}
           >
             <UserMasterData data={userMaster} />

@@ -9,6 +9,7 @@ import AppointmentInfo from "./components/appointmentInfo";
 import InspectionTime from "./components/inspectionsChart";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
+import Header from "../../components/Header";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -37,7 +38,18 @@ const Dashboard = () => {
               Цаг захиалсан үйлчлүүлэгчид
             </Typography>
             <CardContent>
-              <AppointmentInfo color={colors.primary[400]} />
+              <div className="row-content center-center">
+                <img src="assets/coming.svg" />
+                <Typography
+                  variant="h1"
+                  color={colors.grey[100]}
+                  fontWeight="bold"
+                  sx={{ m: "5px" }}
+                >
+                  Тун удахгүй...
+                </Typography>
+              </div>
+              {/* <AppointmentInfo color={colors.primary[400]} /> */}
             </CardContent>
           </Card>
         </Box>

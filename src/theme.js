@@ -216,6 +216,14 @@ export const themeSettings = (mode) => {
           },
         },
       },
+      MuiBox: {
+        styleOverrides: {
+          root: {
+            backgroundColor: colors.primary[400],
+            color: colors.primary[400],
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {

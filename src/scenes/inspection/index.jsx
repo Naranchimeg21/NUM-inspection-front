@@ -50,7 +50,7 @@ const Inspection = () => {
     const fetchTreatments = async () => {
       const [inspectionResponse, userResponse] = await Promise.all([
         inspectionAxios.get("/all"),
-        inspectionAxios.get("user"),
+        inspectionAxios.get("/user"),
       ]);
 
       const inspections = await inspectionResponse.data.data;
@@ -102,9 +102,9 @@ const Inspection = () => {
                   horizontal: "left",
                 }}
               >
-                <Typography sx={{ p: 2 }}>
-                  The content of the Popover.
-                </Typography>
+                <Box p="10px">
+                  <img src="assets/csicon.png" width="100px" height="100px" />
+                </Box>
               </Popover>
             </div>
           </>
@@ -118,7 +118,7 @@ const Inspection = () => {
           </Tabs>
           <Button
             variant="contained"
-            size="large"
+            size="small"
             onClick={() => router("/inspection/add")}
           >
             Шинэ үзлэг

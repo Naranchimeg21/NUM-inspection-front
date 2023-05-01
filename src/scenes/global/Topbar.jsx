@@ -1,43 +1,65 @@
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
-import { ColorModeContext } from "../../theme";
+import { ColorModeContext, tokens } from "../../theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import Header from "../../components/Header";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Topbar = ({ title, subtitle, children }) => {
   const theme = useTheme();
+  const { user, logout } = useAuth();
   const colorMode = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <Box
       display="flex"
       justifyContent="space-between"
       p={2}
       className="card-shadow"
+      sx={{ background: colors.primary[400] }}
     >
       <Header title={title} subtitle={subtitle} filter />
       <Box display="flex" alignItems="center">
         {children}
-        <IconButton
-          className="ml-20"
-          aria-label="mode"
-          onClick={colorMode.toggleColorMode}
-        >
-          {theme.palette.mode === "dark" ? (
-            <DarkModeOutlinedIcon />
-          ) : (
-            <LightModeOutlinedIcon />
-          )}
-        </IconButton>
-        <IconButton aria-label="notification">
-          <NotificationsOutlinedIcon />
-        </IconButton>
+        {user ? (
+          <>
+            <IconButton onClick={colorMode.toggleColorMode}>
+              {theme.palette.mode === "dark" ? (
+                <DarkModeOutlinedIcon />
+              ) : (
+                <LightModeOutlinedIcon />
+              )}
+            </IconButton>
 
-        <IconButton aria-label="log">
-          <PersonOutlinedIcon />
-        </IconButton>
+            <IconButton onClick={handleLogout}>
+              <LogoutIcon />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <IconButton onClick={colorMode.toggleColorMode}>
+              {theme.palette.mode === "dark" ? (
+                <DarkModeOutlinedIcon />
+              ) : (
+                <LightModeOutlinedIcon />
+              )}
+            </IconButton>
+            <Link to="/login">
+              <IconButton>
+                <LoginIcon />
+              </IconButton>
+            </Link>
+          </>
+        )}
       </Box>
     </Box>
   );

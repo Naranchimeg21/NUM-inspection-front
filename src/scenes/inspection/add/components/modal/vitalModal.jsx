@@ -21,6 +21,7 @@ const VitalModal = ({ open, setOpen = () => {}, id }) => {
       .then((res) => {
         setOpen(false);
         setAlerts(true);
+        form.resetFields();
       })
       .catch((error) => {
         setAlerte(true);

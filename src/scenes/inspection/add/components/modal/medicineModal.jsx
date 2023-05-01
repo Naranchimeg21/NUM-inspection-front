@@ -35,6 +35,7 @@ const MedicineModal = ({ id, open, setOpen = () => {} }) => {
         setOpen(false);
         setMedicine([]);
         setName("");
+        form.resetFields();
         setAlerts(true);
       })
       .catch((error) => {
@@ -79,7 +80,7 @@ const MedicineModal = ({ id, open, setOpen = () => {} }) => {
                 <Button
                   variant="contained"
                   size="large"
-                  width="100%"
+                  fullWidth
                   onClick={() => form.submit()}
                 >
                   Эмийн жор нэмэх

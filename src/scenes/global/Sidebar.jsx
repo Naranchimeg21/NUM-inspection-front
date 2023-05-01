@@ -125,7 +125,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed = () => {} }) => {
               sx={{
                 transition: "margin-right 2s",
                 "& .active": {
-                  marginRig: "#1B4588 !important",
+                  marginRig: colors.primary[10],
                 },
               }}
             ></MenuItem>
