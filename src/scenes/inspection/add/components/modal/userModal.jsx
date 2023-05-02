@@ -1,39 +1,57 @@
 import * as React from "react";
-import { Col, Form, Input, Row, Select } from "antd";
+import { Col, Form, Input, InputNumber, Row } from "antd";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import userAxios from "../../../../../utils/userAxios";
 import { SuccessAlert } from "../utils/successAlert";
 import { ErrorAlert } from "../utils/errorAlert";
 import { useState } from "react";
+import { branch } from "../../../../../constants";
+import { useEffect } from "react";
 
-const { Option } = Select;
-const UserModal = ({ open, setOpen = () => {} }) => {
+const UserModal = ({
+  open,
+  setOpen = () => {},
+  getUser = () => {},
+  data = { id: "" },
+}) => {
   const [form] = Form.useForm();
   const [alerts, setAlerts] = useState(false);
   const [alerte, setAlerte] = useState(false);
+  const [type, setType] = useState(false);
   const handleClose = (alert) => {
     setAlerts(alert);
     setAlerte(alert);
   };
   const onSubmit = (value) => {
     userAxios
-      .post("/auth/register", {
+      .post("/", {
         ...value,
+        id: data?.id,
       })
       .then((res) => {
         form.resetFields();
         setAlerts(true);
+        setOpen(false);
+        getUser();
       })
       .catch((error) => {
         setAlerte(true);
       });
   };
+  useEffect(() => {
+    if (data) {
+      form.setFieldsValue(data);
+    }
+    console.log("usereditdata", data);
+  }, [data]);
   return (
     <>
       <Dialog
@@ -42,7 +60,10 @@ const UserModal = ({ open, setOpen = () => {} }) => {
         disableEscapeKeyDown
         className="p-20"
         open={open}
-        onClose={() => setOpen(true)}
+        onClose={() => {
+          setOpen(true);
+          form.resetFields();
+        }}
       >
         <DialogTitle>Үйлчлүүлэгч бүртгэх</DialogTitle>
 
@@ -65,7 +86,16 @@ const UserModal = ({ open, setOpen = () => {} }) => {
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  name="registerNumber"
+                  name="age"
+                  label="Нас"
+                  rules={[
+                    { required: true, message: "Заавал оруулах шаардлагатай." },
+                  ]}
+                >
+                  <InputNumber className="wp-100" />
+                </Form.Item>
+                <Form.Item
+                  name="register"
                   label="РД"
                   rules={[
                     { required: true, message: "Заавал оруулах шаардлагатай." },
@@ -74,31 +104,48 @@ const UserModal = ({ open, setOpen = () => {} }) => {
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  name="password"
+                  name="branchSchool"
                   label=" Салбар"
                   rules={[
                     { required: true, message: "Заавал оруулах шаардлагатай." },
                   ]}
                 >
-                  <Input />
+                  <Select
+                    label
+                    onSelect={(value) => setType(value)}
+                    fullWidth
+                    size="small"
+                  >
+                    {branch.map((item, idx) => (
+                      <MenuItem key={idx} value={item.value}>
+                        {item.value}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </Form.Item>
+                {type && (
+                  <Form.Item
+                    name="grade"
+                    label="Түвшин"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Заавал оруулах шаардлагатай.",
+                      },
+                    ]}
+                  >
+                    <Input className="wp-100" />
+                  </Form.Item>
+                )}
+
                 <Form.Item
-                  name="age"
-                  label="Нас"
-                  rules={[
-                    { required: true, message: "Заавал оруулах шаардлагатай." },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  name="phoneNumber"
+                  name="phone"
                   label="Утас"
                   rules={[
                     { required: true, message: "Заавал оруулах шаардлагатай." },
                   ]}
                 >
-                  <Input />
+                  <Input className="wp-100" />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -111,6 +158,12 @@ const UserModal = ({ open, setOpen = () => {} }) => {
                 >
                   <Input />
                 </Form.Item>
+                <Form.Item name="gender" label="Хүйс" required>
+                  <Select label defaultValue="Эмэгтэй" fullWidth size="small">
+                    <MenuItem value="Эрэгтэй">Эрэгтэй</MenuItem>
+                    <MenuItem value="Эмэгтэй">Эмэгтэй</MenuItem>
+                  </Select>
+                </Form.Item>
                 <Form.Item
                   name="isStudent"
                   label="Төрөл"
@@ -119,7 +172,24 @@ const UserModal = ({ open, setOpen = () => {} }) => {
                   ]}
                 >
                   <Select
+                    label
                     defaultValue={false}
+                    value={false}
+                    onChange={(e) => setType(e.target.value)}
+                    fullWidth
+                    size="small"
+                  >
+                    <MenuItem value={false}>Багш, ажилчин</MenuItem>
+                    <MenuItem value={true}>Оюутан</MenuItem>
+                  </Select>
+                </Form.Item>
+                <Form.Item name="major" label="Мэргэжил">
+                  <Input />
+                </Form.Item>
+                {type && (
+                  <Form.Item
+                    name="degree"
+                    label="Зэрэг"
                     rules={[
                       {
                         required: true,
@@ -127,28 +197,19 @@ const UserModal = ({ open, setOpen = () => {} }) => {
                       },
                     ]}
                   >
-                    <Option value={false}>Багш, ажилчин</Option>
-                    <Option value={true}>Оюутан</Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item name="jobName" label="Мэргэжил">
-                  <Input />
-                </Form.Item>
-                <Form.Item name="gender" label="Хүйс" required>
-                  <Select defaultValue="Эмэгтэй">
-                    <Option value="Эмэгтэй">Эмэгтэй</Option>
-                    <Option value="Эрэгтэй">Эрэгтэй</Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item
-                  name="degree"
-                  label="Боловсрол"
-                  rules={[
-                    { required: true, message: "Заавал оруулах шаардлагатай." },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
+                    <Select
+                      label
+                      defaultValue="Бакалавр"
+                      value="Бакалавр"
+                      onSelect={(value) => setType(value)}
+                      fullWidth
+                      size="small"
+                    >
+                      <MenuItem value="Бакалавр">Бакалавр</MenuItem>
+                      <MenuItem value="Магистр">Магистр</MenuItem>
+                    </Select>
+                  </Form.Item>
+                )}
               </Col>
             </Row>
           </Form>
@@ -163,12 +224,12 @@ const UserModal = ({ open, setOpen = () => {} }) => {
         <SuccessAlert
           text="Үйлчлүүлэгчийн мэдээллийг амжилттай бүртгэлээ."
           open={alerts}
-          setOpen={handleClose}
+          setClose={handleClose}
         />
         <ErrorAlert
           text="Үйлчлүүлэгчийн мэдээллийг бүртгэхэд алдаа гарлаа."
           open={alerte}
-          setOpen={handleClose}
+          setClose={handleClose}
         />
       </Dialog>
     </>

@@ -1,10 +1,10 @@
-export const treatmentType = () => [
+export const treatmentType = [
   { value: "Боолт" },
   { value: "Дусал, тариа" },
   { value: "Бусад" },
 ];
 
-export const rehabilationType = () => [
+export const rehabilationType = [
   { value: "Хэт авиан эмчилгээ" },
   { value: "Цахилгаан бумба" },
   { value: "Искра" },
@@ -13,4 +13,16 @@ export const rehabilationType = () => [
   { value: "Увч шарлагын эмчилгээ" },
   { value: "Увч" },
   { value: "Бусад" },
+];
+
+export const branch = [
+  { value: "БС" },
+  { value: "ЗС" },
+  { value: "Искра" },
+  { value: "ОУХНУС" },
+  { value: "ОС" },
+  { value: "УС" },
+  { value: "ХЗС" },
+  { value: "ХШУИС" },
+  { value: "ШУС" },
 ];

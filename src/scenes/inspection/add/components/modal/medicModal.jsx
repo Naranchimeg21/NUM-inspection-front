@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Form, Input, Select } from "antd";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -111,6 +112,9 @@ const MedicModal = ({ open, setOpen = () => {} }) => {
               </Button>
             </Grid>
           </Form>
+          <Box className>
+
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button variant="contained">Хадгалах</Button>

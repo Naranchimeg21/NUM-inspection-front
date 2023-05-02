@@ -11,6 +11,7 @@ import inspectionAxios from "../../utils/inspectionnetworkActions";
 import { tokens } from "../../theme";
 import userAxios from "../../utils/userAxios";
 import UserModal from "../inspection/add/components/modal/userModal";
+import UDataModal from "./components/userDataModal";
 
 const User = () => {
   const theme = useTheme();
@@ -19,6 +20,8 @@ const User = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -32,17 +35,23 @@ const User = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  //nahh just for test
-  useEffect(() => {
+  const getUser = () => {
+    setLoading(true);
     userAxios
-      .get("/users")
+      .get("/", { params: { search } })
       .then((res) => {
-        setUser(res.data);
+        setUser(res.data.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
-  }, []);
+  };
+  //nahh just for test
+  useEffect(() => {
+    getUser();
+  }, [search]);
   return (
     <>
       <Topbar
@@ -57,6 +66,7 @@ const User = () => {
               label="Хэрэглэгч хайх"
               placeholder="РД, нэр, утасны дугаараар хайна уу."
               size="small"
+              onChange={(e) => setSearch(e.target.value)}
             />
             <div>
               <Button
@@ -96,9 +106,14 @@ const User = () => {
             Шинэ хэрэглэгч
           </Button>
         </Box>
-        <UserDataTable color={colors.primary[400]} data={user} />
+        <UserDataTable
+          color={colors.primary[400]}
+          data={user}
+          loading={loading}
+          getUser={getUser}
+        />
       </Box>
-      <UserModal open={isOpen} setOpen={setIsOpen} />
+      <UserModal open={isOpen} setOpen={setIsOpen} getUser={getUser} />
     </>
   );
 };

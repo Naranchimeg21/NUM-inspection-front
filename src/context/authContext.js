@@ -17,7 +17,7 @@ if (localStorage.getItem("token")) {
 
 const AuthContext = createContext({
   user: null,
-  login: (userData) => {},
+  login: (token) => {},
   logout: () => {},
 });
 
@@ -41,18 +41,18 @@ const authReducer = (state, action) => {
 const AuthProvider = (props) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const login = (userData) => {
-    localStorage.setItem("token", userData.token);
-    // localStorage.setItem("role", userData.role);
+  const login = (token) => {
+    console.log("userData", token);
+    localStorage.setItem("token", token);
+    const decodedToken = jwtDecode(token);
     dispatch({
       type: "LOGIN",
-      payload: userData,
+      payload: decodedToken,
     });
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    // localStorage.removeItem("role");
     dispatch({ type: "LOGOUT" });
   };
 

@@ -21,22 +21,21 @@ const InspectionAdd = () => {
   const colors = tokens(theme.palette.mode);
   const [userId, setUserId] = useState("");
   const [userMaster, setUserMaster] = useState({});
+  const [search, setSearch] = useState("");
   const queryParams = new URLSearchParams(window.location.search);
   const id = queryParams.get("id");
   //nahh just for test
   useEffect(() => {
-    // userAxios
-    inspectionAxios
-      .get("/user")
-      //   .get(`/users/${id}`)
+    userAxios
+      .get(`/`, { params: { id } })
       .then((res) => {
-        if (id) setUserMaster(res.data.data);
+        if (id) setUserMaster(res.data.data[0]);
         else setUser(res.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [search]);
 
   return (
     <>
@@ -65,6 +64,7 @@ const InspectionAdd = () => {
                         label="Хэрэглэгч хайх"
                         placeholder="РД, нэр, утасны дугаараар хайна уу."
                         size="small"
+                        onChange={(e) => setSearch(e.target.value)}
                       />
                       <Button
                         variant="contained"

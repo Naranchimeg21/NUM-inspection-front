@@ -13,9 +13,17 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router-dom";
+import { Empty, Spin } from "antd";
+import UserModal from "../../inspection/add/components/modal/userModal";
+import { useState } from "react";
+import UDataModal from "./userDataModal";
 
-export default function UserDataTable({ color, data }) {
+export default function UserDataTable({ color, data, loading, getUser = {} }) {
   const router = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [dt, setDt] = useState({});
   return (
     <TableContainer component={Paper} sx={{ background: color }}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
@@ -50,19 +58,30 @@ export default function UserDataTable({ color, data }) {
               </TableCell>
               <TableCell>{item.lastName}</TableCell>
               <TableCell>{item.firstName}</TableCell>
-              {/* <TableCell>{item.register}</TableCell>
+              <TableCell>{item.register}</TableCell>
               <TableCell>{item.isStudent ? "Оюутан" : "Ажилтан"}</TableCell>
               <TableCell>{item.branchSchool}</TableCell>
-              <TableCell>{item.major}</TableCell> */}
+              <TableCell>{item.major}</TableCell>
               <TableCell>
                 <IconButton
                   aria-label="delete"
                   color="warning"
                   xs={{ background: "green" }}
+                  onClick={() => {
+                    setIsOpen(true);
+                    setDt(item);
+                  }}
                 >
                   <RemoveRedEyeIcon />
                 </IconButton>
-                <IconButton aria-label="delete" color="warning">
+                <IconButton
+                  onClick={() => {
+                    setOpen(true);
+                    setDt(item);
+                  }}
+                  aria-label="delete"
+                  color="warning"
+                >
                   <EditIcon />
                 </IconButton>
                 <IconButton
@@ -75,7 +94,37 @@ export default function UserDataTable({ color, data }) {
               </TableCell>
             </TableRow>
           ))}
+          {loading && (
+            <TableRow key="id">
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell>
+                <Spin />
+              </TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          )}
+          {!loading && data.length < 1 && (
+            <TableRow key="id">
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell>
+                <Empty />
+              </TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          )}
         </TableBody>
+        <UserModal open={open} setOpen={setOpen} getUser={getUser} data={dt} />
+        <UDataModal data={dt} open={isOpen} setOpen={setIsOpen} />
       </Table>
     </TableContainer>
   );

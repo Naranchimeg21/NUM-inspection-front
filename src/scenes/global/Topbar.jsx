@@ -53,11 +53,6 @@ const Topbar = ({ title, subtitle, children }) => {
                 <LightModeOutlinedIcon />
               )}
             </IconButton>
-            <Link to="/login">
-              <IconButton>
-                <LoginIcon />
-              </IconButton>
-            </Link>
           </>
         )}
       </Box>

@@ -121,6 +121,12 @@ export default function UserMasterData({ data }) {
             <Grid item xs={3} className="fw-600">
               {data.gender}
             </Grid>
+            <Grid item xs={3}>
+              Утасны дугаар:
+            </Grid>
+            <Grid item xs={3} className="fw-600">
+              {data.phone}
+            </Grid>
           </Grid>
           <Grid container spacing={2} className="mt-20">
             <Grid item xs={6} md={3}>

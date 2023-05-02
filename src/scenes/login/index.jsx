@@ -25,23 +25,21 @@ const Login = () => {
   const navigate = useNavigate();
   const [alerts, setAlerts] = useState(false);
   const [alerte, setAlerte] = useState(false);
+
   const onSubmit = (value) => {
     console.log("login", value);
     setLoading(true);
     userAxios
       .post("/login", { ...value })
       .then((res) => {
-        if (res.data.role === "Doctor") {
-          login(res.data);
-          setLoading(false);
-          setAlerts(true);
-          navigate("/");
-        } else {
-          setAlerte(true);
-        }
+        setAlerts(true);
+        login(res.data);
+        setLoading(false);
+        navigate("/");
       })
       .catch((err) => {
         setAlerte(true);
+        setLoading(false);
       });
   };
   const handleClose = (alert) => {
@@ -55,7 +53,13 @@ const Login = () => {
         subtitle="Ямар нэг үйлдэл хийхийн тулд нэвтрэх шаардлагатай!"
       />
       <Box
-        sx={{ width: "100%", height: "100%" }}
+        sx={{
+          width: "100%",
+          height: "100%",
+          // backgroundImage: "url(" + "assets/num.jpg" + ")",
+          // backgroundRepeat: "none",
+          // backgroundSize: "cover",
+        }}
         display="flex"
         justifyContent="center"
         alignItems="center"
