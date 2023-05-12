@@ -7,7 +7,13 @@ import Typography from "@mui/material/Typography";
 import AgeChart from "./components/ageChart";
 import AppointmentInfo from "./components/appointmentInfo";
 import InspectionTime from "./components/inspectionsChart";
+import { tokens } from "../../theme";
+import { useTheme } from "@mui/material";
+import Header from "../../components/Header";
+
 const Dashboard = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   return (
     <>
       <Topbar
@@ -16,16 +22,34 @@ const Dashboard = () => {
       />
       <Box m="20px">
         <Box display="flex" justifyContent="space-between">
-          <InspectionTime />
-          <AgeChart />
+          <InspectionTime color={colors.primary[400]} />
+          <AgeChart color={colors.primary[400]} />
         </Box>
         <Box>
-          <Card sx={{ minWidth: 650, padding: 2, marginTop: 5 }}>
+          <Card
+            sx={{
+              minWidth: 650,
+              padding: 2,
+              marginTop: 5,
+              background: colors.primary[400],
+            }}
+          >
             <Typography gutterBottom variant="h5" component="div">
               Цаг захиалсан үйлчлүүлэгчид
             </Typography>
             <CardContent>
-              <AppointmentInfo />
+              <div className="row-content center-center">
+                <img src="assets/coming.svg" />
+                <Typography
+                  variant="h1"
+                  color={colors.grey[100]}
+                  fontWeight="bold"
+                  sx={{ m: "5px" }}
+                >
+                  Тун удахгүй...
+                </Typography>
+              </div>
+              {/* <AppointmentInfo color={colors.primary[400]} /> */}
             </CardContent>
           </Card>
         </Box>

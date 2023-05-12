@@ -20,9 +20,9 @@ const rows = [
   createData("Энхболд Мягмарсүрэн", "2023-03-21 11:00", "Эмчилгээ"),
 ];
 
-export default function AppointmentInfo() {
+export default function AppointmentInfo({color}) {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{background:color}}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
         <caption>A basic table example with a caption</caption>
         <TableHead>

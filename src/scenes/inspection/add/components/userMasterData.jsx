@@ -1,30 +1,26 @@
 import * as React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
-import { Box, ListItemAvatar, ListItemButton, Tab, Tabs } from "@mui/material";
-import { Avatar, Card, Empty, Image } from "antd";
-import Face3Icon from "@mui/icons-material/Face3";
+import { Box, Tab, Tabs, Card } from "@mui/material";
+import { Empty, Image } from "antd";
 import Grid from "@mui/material/Grid";
 import Header from "../../../../components/Header";
 import VitalModal from "./modal/vitalModal";
 import InspectionModal from "./modal/inspectionModal";
 import MedicModal from "./modal/medicModal";
 import { useState } from "react";
-import DataTable from "../../components/dataTable";
 import VitalData from "./data/vitalData";
 import { useEffect } from "react";
 import vitalAxios from "../../../../utils/vitalnetworkActions";
+import MedicineModal from "./modal/medicineModal";
+import InstructionData from "./data/instructionData";
+import InspectionData from "./data/inspectionData";
 
 export default function UserMasterData({ data }) {
   const [vitalOpen, setIsVital] = useState(false);
   const [inspecOpen, setInspecOpen] = useState(false);
   const [medicOpen, setMedicOpen] = useState(false);
+  const [medicineOpen, setMedicineOpen] = useState(false);
   const [value, setValue] = useState(0);
-  const closeInpecModal = () => {
-    setInspecOpen(false);
-  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -125,12 +121,17 @@ export default function UserMasterData({ data }) {
             <Grid item xs={3} className="fw-600">
               {data.gender}
             </Grid>
+            <Grid item xs={3}>
+              Утасны дугаар:
+            </Grid>
+            <Grid item xs={3} className="fw-600">
+              {data.phone}
+            </Grid>
           </Grid>
           <Grid container spacing={2} className="mt-20">
             <Grid item xs={6} md={3}>
               <Card
                 className="maxnw-400 col-content center-center"
-                hoverable
                 onClick={() => setIsVital(true)}
               >
                 <div className="col-content center-center">
@@ -146,11 +147,7 @@ export default function UserMasterData({ data }) {
               </Card>
             </Grid>
             <Grid item xs={6} md={3}>
-              <Card
-                className="maxnw-400"
-                hoverable
-                onClick={() => setInspecOpen(true)}
-              >
+              <Card className="maxnw-400" onClick={() => setInspecOpen(true)}>
                 <div className="col-content center-center">
                   <Image
                     preview={false}
@@ -164,16 +161,12 @@ export default function UserMasterData({ data }) {
               </Card>
             </Grid>
             <Grid item xs={6} md={3}>
-              <Card
-                className="maxnw-400"
-                hoverable
-                onClick={() => setMedicOpen(true)}
-              >
+              <Card className="maxnw-400" onClick={() => setMedicOpen(true)}>
                 <div className="col-content center-center">
                   <Image
                     preview={false}
                     className="minw-70 h-70 wp-40 "
-                    src="/assets/uzleg.png"
+                    src="/assets/emchilgee.png"
                   />
                   <div>
                     <h4 className="m-5"> Эмчилгээний заавар</h4>
@@ -182,16 +175,12 @@ export default function UserMasterData({ data }) {
               </Card>
             </Grid>
             <Grid item xs={6} md={3}>
-              <Card
-                className="maxnw-400"
-                hoverable
-                onClick={() => setMedicOpen(true)}
-              >
+              <Card className="maxnw-400" onClick={() => setMedicineOpen(true)}>
                 <div className="col-content center-center">
                   <Image
                     preview={false}
                     className="minw-70 h-70 wp-40 "
-                    src="/assets/em.png"
+                    src="/assets/emiinjor.png"
                   />
                   <div>
                     <h4 className="m-5">Эмийн жор</h4>
@@ -206,17 +195,21 @@ export default function UserMasterData({ data }) {
                 <Tab label="Үзлэгийн мэдээлэл" />
                 <Tab label="Амин үзүүлэлтийн мэдээлэлүүд" />
                 <Tab label="Эмчилгээний зааврууд" />
+                <Tab label="Эмийн жорууд" />
               </Tabs>
             </Box>
             <Box>
               <TabPanel value={value} index={0}>
-                <DataTable />
+                <InspectionData id={data.id} />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <VitalData />
+                <VitalData id={data.id} />
               </TabPanel>
               <TabPanel value={value} index={2}>
                 emchilgee
+              </TabPanel>
+              <TabPanel value={value} index={3}>
+                <InstructionData id={data.id} />
               </TabPanel>
             </Box>
           </Box>
@@ -224,7 +217,6 @@ export default function UserMasterData({ data }) {
       ) : (
         <Empty />
       )}
-
       <VitalModal
         open={vitalOpen}
         setOpen={setIsVital}
@@ -232,11 +224,17 @@ export default function UserMasterData({ data }) {
         className="nch-80"
       />
       <InspectionModal
-        open={inspecOpen}
-        setOpen={setInspecOpen}
+        id={data.id}
+        isOpen={inspecOpen}
+        setIsOpen={setInspecOpen}
         className="nch-80"
       />
-      <MedicModal open={medicOpen} setOpen={setMedicOpen} />
+      <MedicModal id={data.id} open={medicOpen} setOpen={setMedicOpen} />
+      <MedicineModal
+        id={data.id}
+        open={medicineOpen}
+        setOpen={setMedicineOpen}
+      />
     </Box>
   );
 }

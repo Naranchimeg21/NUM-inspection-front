@@ -5,12 +5,9 @@ import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
@@ -24,13 +21,13 @@ const InspectionStepper = ({ selected }) => {
     [`&.${stepConnectorClasses.active}`]: {
       [`& .${stepConnectorClasses.line}`]: {
         backgroundImage:
-          "linear-gradient( 95deg, #5bc74e 0%, #3daa3d 50%, #2e7d32 100%)",
+          "linear-gradient( 95deg, #1D07AD 0%, #0140A0 50%, #071FB8 100%)",
       },
     },
     [`&.${stepConnectorClasses.completed}`]: {
       [`& .${stepConnectorClasses.line}`]: {
         backgroundImage:
-          "linear-gradient( 95deg, #5bc74e 0%, #3daa3d 50%, #2e7d32 100%)",
+          "linear-gradient( 95deg, #1D07AD 0%, #0140A0 50%, #071FB8 100%)",
       },
     },
     [`& .${stepConnectorClasses.line}`]: {
@@ -55,12 +52,12 @@ const InspectionStepper = ({ selected }) => {
     alignItems: "center",
     ...(ownerState.active && {
       backgroundImage:
-        "linear-gradient( 95deg, #5bc74e 0%, #3daa3d 50%, #2e7d32 100%)",
+        "linear-gradient( 95deg, #1D07AD 0%, #0140A0 50%, #071FB8 100%)",
       boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
     }),
     ...(ownerState.completed && {
       backgroundImage:
-        "linear-gradient( 95deg, #5bc74e 0%, #3daa3d 50%, #2e7d32 100%)",
+        "linear-gradient( 95deg, #1D07AD 0%, #0140A0 50%, #071FB8 100%)",
     }),
   }));
 

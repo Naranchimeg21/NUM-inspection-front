@@ -18,7 +18,7 @@ export default function PinnedSubheaderList({ data, setUserMaster }) {
       sx={{
         width: "100%",
         maxWidth: 500,
-        bgcolor: "background.paper",
+
         position: "relative",
         overflow: "auto",
         height: "100%",
@@ -47,10 +47,13 @@ export default function PinnedSubheaderList({ data, setUserMaster }) {
                 size={50}
               />
             </ListItemAvatar>
-            <ListItemText primary={item.firstName} secondary={item.lastName} />
             <ListItemText
-              primary={item.register}
-              secondary={`${item.branchSchool} - ${item.major}`}
+              primary={item.firstName || ""}
+              secondary={item.lastName || ""}
+            />
+            <ListItemText
+              primary={item.registerNumber || ""}
+              secondary={`${item.branch || ""} - ${item.jobName || ""}`}
             />
           </ListItemButton>
         ))}

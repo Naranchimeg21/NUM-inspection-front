@@ -8,99 +8,15 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { IconButton, Pagination, PaginationItem } from "@mui/material";
+import { IconButton, Pagination, PaginationItem, Tooltip } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
-function createData(date, lname, name, type, diagnosis, ajilbar) {
-  return { date, lname, name, type, diagnosis, ajilbar };
-}
+import dayjs from "dayjs";
 
-const rows = [
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-  createData(
-    "2023-03-20",
-    "Нямжав ",
-    "Хяналтаар",
-    "Наранчимэг",
-    "A01.9",
-    "Эмчилгээ"
-  ),
-];
-
-export default function DataTable() {
+export default function DataTable({ data, color }) {
+  console.log("data", data);
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ background: color }}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
         <caption>
           <Pagination
@@ -115,32 +31,52 @@ export default function DataTable() {
         </caption>
         <TableHead>
           <TableRow>
-            <TableCell>№</TableCell>
-            <TableCell>Үзлэгийн өдөр</TableCell>
-            <TableCell>Овог</TableCell>
-            <TableCell>Нэр</TableCell>
-            <TableCell>Үзлэгийн төрөл</TableCell>
-            <TableCell>Онош</TableCell>
-            <TableCell>Хийгдсэн ажилбар</TableCell>
-            <TableCell>Үйлдлүүд</TableCell>
+            <TableCell className="fw-600">№</TableCell>
+            <TableCell className="fw-600">Үзлэгийн өдөр</TableCell>
+            <TableCell className="fw-600">Овог</TableCell>
+            <TableCell className="fw-600">Нэр</TableCell>
+            <TableCell className="fw-600">Үзлэгийн төрөл</TableCell>
+            <TableCell className="fw-600">Онош</TableCell>
+            <TableCell className="fw-600">Хийгдсэн ажилбар</TableCell>
+            <TableCell className="fw-600">Үйлдлүүд</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, idx) => (
-            <TableRow key={row.name}>
+          {data.map((row, idx) => (
+            <TableRow key={row.inspection.id}>
               <TableCell component="th" scope="row">
                 {idx + 1}
               </TableCell>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.lname}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.type}</TableCell>
-              <TableCell>{row.diagnosis}</TableCell>
-              <TableCell>{row.ajilbar}</TableCell>
               <TableCell>
-                <IconButton aria-label="delete" color="warning">
-                  <RemoveRedEyeIcon />
-                </IconButton>
+                {dayjs(row.inspection.createdAt).format("YYYY-MM-DD")}
+              </TableCell>
+              {row.user && (
+                <>
+                  <TableCell>{row.user.lastName || ""}</TableCell>
+                  <TableCell>{row.user.firstName || ""}</TableCell>
+                </>
+              )}
+
+              <TableCell>{row.inspection.emchiinUzleg}</TableCell>
+              {row.inspection.isDiagnosis ? (
+                <TableCell>
+                  {row?.inspection?.undsenOnosh?.value} -
+                  {row?.inspection?.undsenOnosh?.name}
+                </TableCell>
+              ) : (
+                <TableCell>Онош тогтоогдоогүй </TableCell>
+              )}
+
+              <TableCell>{row.inspection.hiigdsenAjilbar}</TableCell>
+              <TableCell>
+                <Tooltip title="Дэлгэрэнгүйг харах">
+                  <IconButton
+                    sx={{ background: "#3076cb", color: "#ffff" }}
+                    className="mr-10"
+                  >
+                    <RemoveRedEyeIcon />
+                  </IconButton>
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}

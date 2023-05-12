@@ -8,7 +8,7 @@ export const tokens = (mode) => ({
           100: "#e0e0e0",
           200: "#c2c2c2",
           300: "#a3a3a3",
-          400: "#858585",
+          400: "#fff",
           500: "#666666",
           600: "#525252",
           700: "#3d3d3d",
@@ -18,13 +18,16 @@ export const tokens = (mode) => ({
         primary: {
           100: "#d0d1d5",
           200: "#a1a4ab",
-          300: "#727681",
-          400: "#1F2A40",
-          500: "#141b2d",
+          300: "#F2F0F0",
+          400: "#30334e",
+          500: "#282a42",
           600: "#101624",
           700: "#0c101b",
-          800: "#080b12",
-          900: "#040509",
+          800: "#2f4b8d",
+          900: "#2c365e",
+          10: "#0140a0",
+          11: "#1B4588",
+          12: "#1B4588",
         },
         greenAccent: {
           100: "#dbf5ee",
@@ -65,7 +68,7 @@ export const tokens = (mode) => ({
           100: "#141414",
           200: "#292929",
           300: "#3d3d3d",
-          400: "#525252",
+          400: "#000",
           500: "#666666",
           600: "#858585",
           700: "#a3a3a3",
@@ -76,12 +79,15 @@ export const tokens = (mode) => ({
           100: "#040509",
           200: "#080b12",
           300: "#0c101b",
-          400: "#f2f0f0", // manually changed
-          500: "#141b2d",
+          400: "#ffffff", // manually changed
+          500: "#f3f3f3",
           600: "#1F2A40",
           700: "#727681",
           800: "#a1a4ab",
           900: "#d0d1d5",
+          10: "#0140a0",
+          11: "#1B4588",
+          12: "#1B4588",
         },
         greenAccent: {
           100: "#0f2922",
@@ -160,6 +166,7 @@ export const themeSettings = (mode) => {
             },
           }),
     },
+
     typography: {
       fontFamily: ["Roboto", "sans-serif"].join(","),
       fontSize: 12,
@@ -188,10 +195,118 @@ export const themeSettings = (mode) => {
         fontSize: 14,
       },
     },
+    text: {
+      primary: "green",
+    },
+    overrides: {
+      MuiTab: {
+        selected: {
+          color: "#040509",
+        },
+      },
+    },
+    components: {
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            padding: "5px 0",
+            ":hover": {
+              boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+            },
+          },
+        },
+      },
+      MuiBox: {
+        styleOverrides: {
+          root: {
+            backgroundColor: colors.primary[400],
+            color: colors.primary[400],
+          },
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            "&:hover": {
+              backgroundColor: "#1e69c5",
+            },
+            backgroundColor: colors.primary[10],
+            color: "#fff",
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundColor: colors.primary[400],
+            color: colors.grey[400],
+          },
+        },
+      },
+
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            "&:hover": {
+              backgroundColor: colors.primary[800],
+            },
+          },
+        },
+      },
+      MuiTabs: {
+        styleOverrides: {
+          root: {
+            color: colors.grey[400],
+            "&.MuiTab-root.Mui-selected": {
+              color: colors.grey[400],
+              borderColor: colors.grey[400],
+            },
+            "& .MuiTabs-indicator": {
+              backgroundColor: colors.primary[10],
+              height: 3,
+            },
+          },
+        },
+      },
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            "&.MuiTab-root.Mui-selected": {
+              color: colors.grey[400],
+            },
+            "&$selected": {
+              backgroundColor: "#004C9B",
+              color: "white",
+              // fontWeight: theme.typography.fontWeightMedium,
+            },
+          },
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: {
+            backgroundColor: "#fff", // your desired color here
+          },
+        },
+      },
+      // MuiTab: {
+      //   styleOverrides: {
+      //     textColorInherit: {
+      //       color: colors.grey[400],
+      //     },
+      //     color: colors.grey[400],
+      //     "&:active": {
+      //       background: "green",
+      //     },
+      //   },
+      //   action: {
+      //     selected: "#ff0000", // set selected/active tab color to red
+      //   },
+      // },
+    },
   };
 };
 
-// context for color mode
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });

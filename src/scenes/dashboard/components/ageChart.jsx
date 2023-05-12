@@ -1,11 +1,10 @@
 import React from "react";
 import { Bar } from "@ant-design/plots";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-const AgeChart = () => {
+const AgeChart = ({ color }) => {
   const data = [
     {
       type: `18-22`,
@@ -48,7 +47,9 @@ const AgeChart = () => {
     maxBarWidth: 10,
   };
   return (
-    <Card sx={{ minWidth: "48%", padding: 2, marginLeft: 2 }}>
+    <Card
+      sx={{ minWidth: "48%", padding: 2, marginLeft: 2, background: color }}
+    >
       <Typography gutterBottom variant="h5" component="div">
         үйлчлүүлэгчдийн тоо насаар
       </Typography>
